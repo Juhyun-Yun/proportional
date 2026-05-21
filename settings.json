@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk 'NR==12{print \"START\"} NR==564{print \"END\"}' \"c:/Users/bacus/Desktop/작업/비례식과 비례배분/index.html\")"
+    ]
+  }
+}
