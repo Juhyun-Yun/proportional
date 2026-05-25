@@ -708,7 +708,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 8px 12px;
+    padding: 10px 12px 18px;
     background: rgba(255,250,238,0.95);
     border-top: 2px dashed #d4b487;
     flex-wrap: wrap;
@@ -1261,11 +1261,11 @@
     display: flex;
     align-items: center;        /* 늘이지 않음 — 귀여운 고정 크기 */
     justify-content: center;
-    gap: 18px;
+    gap: 12px;
     padding: 8px 0;
   }
   .home-card {
-    flex: 0 0 320px;            /* 고정 폭 */
+    flex: 0 0 240px;            /* 고정 폭 (4단원 가로 배치용) */
     height: 380px;
     background: var(--c-soft, var(--paper-deep));
     border: 3px solid var(--c, var(--paper-deep));
@@ -1314,12 +1314,12 @@
     font-family: 'Pretendard Variable', sans-serif;
   }
   .home-card-emoji {
-    font-size: 72px;
+    font-size: 60px;
     margin: 0;
     filter: drop-shadow(0 3px 6px rgba(0,0,0,.14));
   }
   .home-card-title {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--ink);
     margin: 0;
     text-align: center;
@@ -1328,7 +1328,7 @@
     font-weight: 800;
   }
   .home-card-desc {
-    font-size: 20px;
+    font-size: 17px;
     color: var(--ink-soft);
     text-align: center;
     word-break: keep-all;
@@ -1337,14 +1337,14 @@
   }
   .home-card-stars {
     margin: 0;
-    font-size: 24px;
+    font-size: 22px;
     color: var(--c-deep, var(--accent));
     letter-spacing: .2em;
   }
   .home-card-stars .empty { color: rgba(0,0,0,.18); }
   .home-arrow {
     align-self: center;
-    font-size: 22px;
+    font-size: 18px;
     color: var(--muted);
     flex: 0 0 auto;
     font-weight: 900;
@@ -1808,16 +1808,19 @@ const STAGES = [
   { id:7, title:'종합 도전',     short:'종합 도전',     emoji:'🏆', desc:'배운 것을 모두 모아 도전해요' },
 ];
 
-/* 홈에 표시되는 3개의 큰 단원 — 모두 따끈따끈 베이커리에서 펼쳐져요 */
+/* 홈에 표시되는 4개의 큰 단원 — 모두 따끈따끈 베이커리에서 펼쳐져요 */
 const GROUPS = {
-  1: { id:1, title:'비의 성질',      emoji:'🍞',
-       desc:'첫 빵 레시피와<br>사장님의 비밀 레시피로 비를 만나요',
+  1: { id:1, title:'비의 성질',         emoji:'🍞',
+       desc:'첫 빵 레시피와<br>사장님의 비밀 레시피',
        sections:[1, 2], colorVar:'tab-1' },
-  2: { id:2, title:'비례식의 성질',  emoji:'🥣',
-       desc:'두 반죽통의 같은 비율,<br>사장님 레시피북 속 법칙',
-       sections:[3, 4, 5], colorVar:'tab-2' },
-  3: { id:3, title:'비례배분',       emoji:'🎂',
-       desc:'갓 구운 쿠키 나누기,<br>베이커리 마스터 시험!',
+  2: { id:2, title:'비례식의 성질 1',   emoji:'🥣',
+       desc:'두 반죽통에서<br>같은 비율을 찾아요',
+       sections:[3], colorVar:'tab-2' },
+  3: { id:3, title:'비례식의 성질 2',   emoji:'📖',
+       desc:'사장님 레시피북 속 법칙과<br>생활 속 비례식',
+       sections:[4, 5], colorVar:'tab-3' },
+  4: { id:4, title:'비례배분',          emoji:'🎂',
+       desc:'갓 구운 쿠키 나누기와<br>베이커리 마스터 시험!',
        sections:[6, 7], colorVar:'tab-5' },
 };
 
@@ -1833,7 +1836,7 @@ const NARRATIVE = {
   2: { scene:'사장님의 비밀 레시피', emoji:'📖',
        intro:'사장님의 비밀 레시피북에는 재료가 <b>0.8 컵 : 0.2 컵</b>처럼 정확한 비로 적혀 있어요. 분수로 적힌 레시피도 있고요. 외우기 쉽도록 <b>자연수의 비</b>로 줄여 봐요!' },
   3: { scene:'두 반죽통의 같은 비율', emoji:'🥣',
-       intro:'반죽통 두 개에 반죽을 만들었어요. 작은 반죽통엔 우유 <b>2컵</b>에 밀가루 <b>4컵</b>, 큰 반죽통엔 우유 <b>3컵</b>에 밀가루 <b>6컵</b>. 두 반죽의 비율이 같다는 걸 한 줄로 어떻게 적을 수 있을까요?' },
+       intro:'반죽통 두 개에 반죽을 만들었어요. 작은 반죽통에는 우유 <b>2컵</b>에 밀가루 <b>4컵</b>을 넣고, 큰 반죽통에는 우유 <b>3컵</b>에 밀가루 <b>6컵</b>을 넣었어요. 두 반죽의 비율은 어떤가요?' },
   4: { scene:'사장님의 레시피북',   emoji:'📖',
        intro:'사장님의 오래된 <b>레시피북</b> 📖에 신비한 글귀가 적혀있어요. "비례식의 외항의 곱과 내항의 곱은 언제나 같다…" 정말 그런지 직접 계산해서 확인해 봐요!' },
   5: { scene:'손님들의 주문',  emoji:'🛎️',
@@ -1860,7 +1863,11 @@ function groupOf(stageId){
 /* 단원별 대표 컬러(tab-N 인덱스).
    코랄(1) · 민트(2) · 핑크(5) — 따뜻한 색 사이에 산뜻한 민트로 */
 function groupColor(gid){
-  return gid === 1 ? 1 : (gid === 2 ? 2 : 5);
+  // 1→코랄, 2→민트, 3→라벤더, 4→핑크
+  if(gid === 1) return 1;
+  if(gid === 2) return 2;
+  if(gid === 3) return 3;
+  return 5;  // gid === 4 (비례배분)
 }
 
 /* 각 소단원은 4단계로 통일 (모두 따끈따끈 베이커리 안의 장면):
@@ -1884,7 +1891,7 @@ const STEP_NAMES = {
   3: [
     { name:'문제 상황 — 두 반죽통의 같은 비율', icon:'🥣' },
     { name:'개념 학습 — 비례식·외항·내항',   icon:'🔗' },
-    { name:'핵심 정리 — 비율 짝짓기',        icon:'🎮' },
+    { name:'핵심 정리',                       icon:'✨' },
     { name:'실생활 문제 — 같은 비율 만들기', icon:'📝' },
     { name:'연습하기 — 비례식 만들기',        icon:'⏱️' },
   ],
@@ -1921,22 +1928,24 @@ const STEP_NAMES = {
 
 /* ===== 단원별 (그룹) 보상 — 따끈따끈 베이커리 꼬마 제빵사 일지 ===== */
 const STORY = {
-  1: { chapter:'제 1 단원. 비의 성질',     badge:'🍞 꼬마 제빵사 1단계',
+  1: { chapter:'제 1 단원. 비의 성질',         badge:'🍞 꼬마 제빵사 1단계',
        journal:'따끈따끈 베이커리 첫 수업. 빵 한 덩어리에 들어가는 우유와 버터의 비를 발견했고, 사장님의 비밀 레시피북에 적힌 복잡한 소수·분수 비도 자연수의 비로 깔끔하게 줄였다. 꼬마 제빵사로서 든든한 첫 걸음을 떼었다!' },
-  2: { chapter:'제 2 단원. 비례식의 성질',  badge:'📖 비례식 명탐정',
-       journal:'두 반죽통에서 같은 비율을 찾아 비례식을 만들었고, 사장님 레시피북에서 외항의 곱과 내항의 곱이 언제나 같다는 강력한 법칙을 발견했다. 손님들의 다양한 주문도 비례식으로 척척!' },
-  3: { chapter:'제 3 단원. 비례배분',       badge:'🏆 베이커리 마스터',
+  2: { chapter:'제 2 단원. 비례식의 성질 1',   badge:'🥣 반죽통 탐험가',
+       journal:'두 반죽통에서 같은 비율을 찾아 비례식을 만들었다. 비율이 같은 두 비를 등호로 잇는 비례식, 그리고 외항·내항이라는 새로운 이름까지 알게 되었다.' },
+  3: { chapter:'제 3 단원. 비례식의 성질 2',   badge:'📖 비례식 명탐정',
+       journal:'사장님 레시피북에서 외항의 곱과 내항의 곱이 언제나 같다는 강력한 법칙을 발견했고, 손님들의 다양한 주문도 비례식으로 척척 해결했다!' },
+  4: { chapter:'제 4 단원. 비례배분',          badge:'🏆 베이커리 마스터',
        journal:'갓 구운 쿠키를 두 손님 그룹에 비에 맞춰 똑똑하게 나누는 비례배분 기술까지 익혔고, 마침내 따끈따끈 베이커리의 마스터 시험을 통과했다. 이제 나는 진정한 베이커리 마스터다!' },
 };
 
 /* ===== 도전 가이드: 별을 모을수록 더 멋진 빵·디저트로! ===== */
 const LEVELS = [
-  { stars: 0, emoji: '🌾', name: '재료 준비',     desc: '베이커리 도전을 곧 시작해요' },
-  { stars: 1, emoji: '🥣', name: '반죽 만들기',   desc: '첫 번째 별을 얻었어요!' },
-  { stars: 3, emoji: '🍞', name: '갓 구운 빵',    desc: '맛있는 빵 한 덩이 완성!' },
-  { stars: 5, emoji: '🥐', name: '크루아상',       desc: '바삭한 크루아상까지!' },
-  { stars: 7, emoji: '🧁', name: '컵케이크',       desc: '귀여운 컵케이크 완성!' },
-  { stars: 9, emoji: '🎂', name: '베이커리 마스터 케이크', desc: '완벽! 마스터가 됐어요' },
+  { stars: 0,  emoji: '🌾', name: '재료 준비',     desc: '베이커리 도전을 곧 시작해요' },
+  { stars: 1,  emoji: '🥣', name: '반죽 만들기',   desc: '첫 번째 별을 얻었어요!' },
+  { stars: 4,  emoji: '🍞', name: '갓 구운 빵',    desc: '맛있는 빵 한 덩이 완성!' },
+  { stars: 7,  emoji: '🥐', name: '크루아상',       desc: '바삭한 크루아상까지!' },
+  { stars: 10, emoji: '🧁', name: '컵케이크',       desc: '귀여운 컵케이크 완성!' },
+  { stars: 12, emoji: '🎂', name: '베이커리 마스터 케이크', desc: '완벽! 마스터가 됐어요' },
 ];
 function getLevel(stars){
   let lvl = LEVELS[0];
@@ -2007,10 +2016,10 @@ function showGuide(){
 const TITLES = [
   { min: 0,  name: '신입 연구자' },
   { min: 1,  name: '견습 연구원' },
-  { min: 5,  name: '보조 연구원' },
-  { min: 10, name: '정 연구원' },
-  { min: 15, name: '수석 연구원' },
-  { min: 19, name: '비례식 마스터' },
+  { min: 4,  name: '보조 연구원' },
+  { min: 7,  name: '정 연구원' },
+  { min: 10, name: '수석 연구원' },
+  { min: 12, name: '비례식 마스터' },
 ];
 function getRank(){
   const total = Object.values(state.progress).reduce((a,b)=>a+b,0);
@@ -2036,7 +2045,7 @@ function saveName(n){ try{ localStorage.setItem('biyul_name', n); }catch{} state
 
 function isUnlocked(){ return true; }
 function nextRecommendedGroup(){
-  for(const id of [1,2,3]){
+  for(const id of [1,2,3,4]){
     if((state.progress[id]||0) < 3) return id;
   }
   return 3;
@@ -2308,15 +2317,185 @@ function preprocessForOCR(canvas){
   return out;
 }
 
+/* 잉크 픽셀의 바운딩 박스·종횡비 등 기본 특성 계산 — 한국식 손글씨 휴리스틱용 */
+function computeInkFeatures(canvas){
+  if(!canvas || !canvas.width || !canvas.height) return null;
+  const ctx = canvas.getContext('2d');
+  let img;
+  try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+  catch(e){ return null; }
+  const W = canvas.width, H = canvas.height;
+  const data = img.data;
+  let minX = W, minY = H, maxX = -1, maxY = -1, count = 0;
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const i = (y * W + x) * 4;
+      const v = (data[i] + data[i+1] + data[i+2]) / 3;
+      if(v < 160){
+        count++;
+        if(x < minX) minX = x;
+        if(x > maxX) maxX = x;
+        if(y < minY) minY = y;
+        if(y > maxY) maxY = y;
+      }
+    }
+  }
+  if(count < 8 || maxX < 0) return null;  // 빈 칸으로 간주
+  const inkW = maxX - minX + 1;
+  const inkH = maxY - minY + 1;
+  return {
+    W, H, minX, minY, maxX, maxY, inkW, inkH, count,
+    aspectRatio: inkH / Math.max(1, inkW),
+    widthRatio: inkW / W,
+    inkRatio: count / Math.max(1, inkW * inkH)
+  };
+}
+
+/* 닫힌 흰색 영역(loop) 개수와 각 영역의 중심을 반환 — 6/8/9/0 구분용
+   잉크를 살짝 두껍게 dilate해서 작은 틈을 메운 뒤, 가장자리부터 flood fill로 외부 영역을 표시한다.
+   외부로 표시되지 않은 흰색 픽셀들의 연결 영역이 곧 loop이다. */
+function countInkLoops(canvas){
+  if(!canvas || !canvas.width || !canvas.height) return { count: 0, centroids: [] };
+  const ctx = canvas.getContext('2d');
+  let img;
+  try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+  catch(e){ return { count: 0, centroids: [] }; }
+  const W = canvas.width, H = canvas.height;
+  const data = img.data;
+  const isInk = new Uint8Array(W * H);
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const i = (y * W + x) * 4;
+      const v = (data[i] + data[i+1] + data[i+2]) / 3;
+      if(v < 160) isInk[y * W + x] = 1;
+    }
+  }
+  // dilate 반경 — 가느다란 손글씨의 작은 틈을 메우기 위해 살짝 두껍게
+  const DR = 2;
+  const inkMask = new Uint8Array(W * H);
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      if(isInk[y * W + x]){
+        for(let dy = -DR; dy <= DR; dy++){
+          for(let dx = -DR; dx <= DR; dx++){
+            const nx = x + dx, ny = y + dy;
+            if(nx >= 0 && nx < W && ny >= 0 && ny < H){
+              inkMask[ny * W + nx] = 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  // 가장자리의 흰색 픽셀에서 flood fill — 외부 영역 표시
+  const visited = new Uint8Array(W * H);
+  const queue = [];
+  function pushIfWhite(p){
+    if(!inkMask[p] && !visited[p]){ visited[p] = 1; queue.push(p); }
+  }
+  for(let x = 0; x < W; x++){ pushIfWhite(x); pushIfWhite((H-1)*W + x); }
+  for(let y = 0; y < H; y++){ pushIfWhite(y * W); pushIfWhite(y * W + (W-1)); }
+  while(queue.length){
+    const p = queue.pop();
+    const y = Math.floor(p / W), x = p - y * W;
+    if(x > 0)   pushIfWhite(p - 1);
+    if(x < W-1) pushIfWhite(p + 1);
+    if(y > 0)   pushIfWhite(p - W);
+    if(y < H-1) pushIfWhite(p + W);
+  }
+  // 외부에 표시되지 않은 흰색 픽셀 = 닫힌 영역(loop)
+  const centroids = [];
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const p = y * W + x;
+      if(!inkMask[p] && !visited[p]){
+        let sumX = 0, sumY = 0, n = 0;
+        const q = [p];
+        visited[p] = 1;
+        while(q.length){
+          const pp = q.pop();
+          const py = Math.floor(pp / W), px = pp - py * W;
+          sumX += px; sumY += py; n++;
+          if(px > 0){   const np = pp - 1; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(px < W-1){ const np = pp + 1; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(py > 0){   const np = pp - W; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(py < H-1){ const np = pp + W; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+        }
+        // 노이즈 제외 — 캔버스 면적의 0.3% 이상인 영역만 loop로 인정
+        if(n >= Math.max(20, W * H * 0.003)){
+          centroids.push({ x: sumX / n, y: sumY / n, size: n });
+        }
+      }
+    }
+  }
+  return { count: centroids.length, centroids };
+}
+
 async function recognizeDigitsFromCanvas(canvas){
   if(!canvas) return '';
   try {
+    const features = computeInkFeatures(canvas);
+    if(!features) return '';  // 빈 칸
+
+    // 1) 한국식 "1" — 단순 세로획. 임계값을 완화해서 더 잘 잡아냄.
+    //    종횡비 ≥ 1.7 (높이가 폭의 1.7배 이상) 이고 폭이 캔버스의 38% 미만이면 1로 분류.
+    //    (l, |, 단순 세로획 모두 포함)
+    if(features.aspectRatio >= 1.7 && features.widthRatio < 0.38){
+      return '1';
+    }
+
+    // 2) Loop 검출 — 6/8/9/0 구분용
+    const loops = countInkLoops(canvas);
+
+    // 2-1) 닫힌 영역 2개 이상 → "8"
+    if(loops.count >= 2){
+      return '8';
+    }
+
+    // 3) Tesseract OCR 실행 (참고용)
     const w = await getOCRWorker();
-    if(!w) return '';
-    const processed = preprocessForOCR(canvas);
-    if(!processed) return '';  // 빈 칸
-    const { data:{ text } } = await w.recognize(processed);
-    return (text||'').replace(/\D/g, '').trim();
+    let ocrResult = '';
+    if(w){
+      const processed = preprocessForOCR(canvas);
+      if(processed){
+        const { data:{ text } } = await w.recognize(processed);
+        ocrResult = (text||'').replace(/\D/g, '').trim();
+      }
+    }
+
+    // 4) 닫힌 영역 1개 → 위치/크기 기반 판별
+    if(loops.count === 1){
+      const c = loops.centroids[0];
+      const cy = c.y, cx = c.x;
+      const relY = (cy - features.minY) / Math.max(1, features.inkH);
+      const relX = (cx - features.minX) / Math.max(1, features.inkW);
+      const loopAreaRatio = c.size / Math.max(1, features.inkW * features.inkH);
+
+      // 4는 보통 loop이 좌상단(작고 위치가 한쪽으로 치우침)에 위치하며, 종횡비가 1에 가까움
+      // OCR이 4로 읽거나 loop이 좌상단·작을 때 4로 판별
+      if(ocrResult === '4') return '4';
+      if(relY < 0.5 && relX < 0.45 && loopAreaRatio < 0.25) return '4';
+
+      // OCR이 명확히 다른 숫자(2,3,5,7)로 읽었으면 신뢰
+      if(['2','3','5','7'].includes(ocrResult)) return ocrResult;
+
+      // 위치로 0/6/9 판별
+      //   위쪽(<0.45): 9
+      //   아래쪽(>0.55): 6
+      //   가운데: 0 (또는 OCR이 0/6/9가 아닌 다른 값이면 그것)
+      if(relY < 0.45) return '9';
+      if(relY > 0.55) return '6';
+      return '0';
+    }
+
+    // 5) Loop 없음 — OCR 결과가 비었거나 의심스러우면 종횡비 기반 폴백
+    if(!ocrResult){
+      if(features.aspectRatio >= 1.5 && features.widthRatio < 0.45){
+        return '1';  // 1로 추정
+      }
+    }
+    // OCR이 1로 인식했지만 모양이 충분히 얇지 않으면 다른 숫자일 가능성 — 그래도 OCR 신뢰
+    return ocrResult;
   } catch(e){
     console.warn('OCR 인식 실패:', e);
     return '';
@@ -2330,12 +2509,15 @@ function setupAnswerPad(canvas, opts = {}){
   const ctx = canvas.getContext('2d');
   function fit(){
     const rect = canvas.getBoundingClientRect();
-    if(rect.width > 5 && rect.height > 5 && (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height))){
+    // 캔버스를 흰 배경으로 채우는 것은 첫 사이즈 결정 시 한 번만 — 이후에는 사용자가 그린 획을 지우지 않음
+    const needResize = (rect.width > 5 && rect.height > 5 &&
+      (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)));
+    if(needResize){
       canvas.width  = Math.round(rect.width);
       canvas.height = Math.round(rect.height);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = '#1a1a1a';
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
@@ -2366,6 +2548,8 @@ function setupAnswerPad(canvas, opts = {}){
   canvas.addEventListener('touchend',   ()=>{ if(drawing){ drawing=false; fireChange(); } });
   return {
     clear: ()=>{
+      // 대기 중인 OCR 호출 취소 — 이전 그림의 결과가 다음 문제에 잘못 들어가는 것을 막음
+      clearTimeout(changeTimer);
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
@@ -2608,18 +2792,18 @@ function renderWelcomePage(){
 /* ============== 홈 (3개 단원) ============== */
 function renderHomePage(){
   const total = Object.values(state.progress).reduce((a,b)=>a+b,0);
-  const max = 3 * 3;  // 3 단원 × 3별
-  const cleared = [1,2,3].filter(id=>(state.progress[id]||0)>0).length;
+  const max = 4 * 3;  // 4 단원 × 3별
+  const cleared = [1,2,3,4].filter(id=>(state.progress[id]||0)>0).length;
   const recommended = nextRecommendedGroup();
-  const medals = [1,2,3].filter(id=>(state.progress[id]||0)>=3).length;
+  const medals = [1,2,3,4].filter(id=>(state.progress[id]||0)>=3).length;
   const userName = state.userName || '꼬마 제빵사';
 
   const cards = Object.values(GROUPS).map((g, idx)=>{
     const stars = state.progress[g.id]||0;
     const isActive = g.id === recommended;
-    const arrow = idx < 2 ? `<div class="home-arrow">→</div>` : '';
+    const arrow = idx < 3 ? `<div class="home-arrow">→</div>` : '';
     const empty = 3 - stars;
-    const tabIdx = groupColor(idx + 1);
+    const tabIdx = groupColor(g.id);
     return `
       <div class="home-card ${isActive?'active':''}"
            style="--c:var(--tab-${tabIdx});--c-soft:var(--tab-${tabIdx}-soft);--c-deep:var(--tab-${tabIdx}-deep)"
@@ -2657,7 +2841,7 @@ function renderHomePage(){
       <div class="home-grid">${cards}</div>
 
       <div class="home-tip">
-        💡 세 단원을 모두 끝내면 <b>비례식 마스터</b> 자격증을 받을 수 있어요!
+        💡 네 단원을 모두 끝내면 <b>비례식 마스터</b> 자격증을 받을 수 있어요!
       </div>
     </div>
   `);
@@ -2774,16 +2958,25 @@ function renderStagePage(){
   const gid = groupOf(state.stage);
   const tabIdx = groupColor(gid);
 
-  // 그룹(=메인 탭) 전체 페이지 수 + 현재 위치
+  // 그룹(=메인 탭) 전체 페이지 수 + 현재 위치 (하위 페이지 포함)
+  // SUB_PAGE_CONFIGS: 특정 단원·단계에 sub-page가 있으면 count·key 명시
+  const SUB_PAGE_CONFIGS = {
+    3: { 2: { count: 3, key: 'sub' } },                           // 비례식 (Stage 3) 핵심 정리
+    4: { 1: { count: 3, key: 'sub2' }, 2: { count: 3, key: 'sub' } }, // 비례식의 성질 개념·핵심
+  };
   const groupSections = GROUPS[gid].sections;
   let groupTotal = 0;
   let groupPos = 0;
   for(const sId of groupSections){
-    const cnt = (stageDefs[sId] || []).length;
-    if(sId === state.stage){
-      groupPos = groupTotal + state.step + 1;
+    const steps = stageDefs[sId] || [];
+    for(let i = 0; i < steps.length; i++){
+      const cfg = (SUB_PAGE_CONFIGS[sId] && SUB_PAGE_CONFIGS[sId][i]) || { count: 1 };
+      if(sId === state.stage && i === state.step){
+        const subIdx = cfg.key ? ((state.data[cfg.key] ?? 0)|0) : 0;
+        groupPos = groupTotal + subIdx + 1;
+      }
+      groupTotal += cfg.count;
     }
-    groupTotal += cnt;
   }
 
   const isFirst = isFirstStepOfGroup();
@@ -2824,7 +3017,7 @@ function renderClearPage(){
   const stars = state.data.stars || 1;
   const g = GROUPS[state.group];
   const story = STORY[g.id];
-  const isLast = g.id === 3;
+  const isLast = g.id === 4;
   const rank = getRank();
   const userName = state.userName || '꼬마 제빵사';
   const tabIdx = groupColor(g.id);
@@ -2973,7 +3166,7 @@ function makeProblems(problems, onDone, label='정답 확인'){
       <div style="display:flex;gap:14px;flex:1;min-height:0;align-items:stretch">
         <!-- 왼쪽: 문제 -->
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;min-width:0">
-          ${p.label ? `<div style="text-align:center;font-size:26px;color:var(--ink);background:#fff7e0;border:3px solid var(--accent);border-radius:16px;padding:12px 22px;margin:0 auto;max-width:fit-content;font-weight:500;line-height:1.4">${p.label}</div>` : ''}
+          ${p.label ? `<div style="text-align:center;font-size:${p.labelFontSize||26}px;color:var(--ink);background:#fff7e0;border:3px solid var(--accent);border-radius:16px;padding:12px 22px;margin:0 auto;max-width:min(95%,1000px);font-weight:500;line-height:1.4">${p.label}</div>` : ''}
           <div style="background:linear-gradient(135deg,#f5edff 0%,#ede0ff 100%);border:3px solid var(--tab-3);border-radius:20px;padding:34px 24px;text-align:center">
             <div style="font-size:50px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;font-weight:800">${qHtml}</div>
           </div>
@@ -3008,8 +3201,9 @@ function makeProblems(problems, onDone, label='정답 확인'){
       const myN = ++tk.n;
       const rec = await recognizeDigitsFromCanvas(c);
       if(myN !== tk.n) return;  // 더 새로운 그리기가 시작됨 — 무시
-      if(ansInputs[idx]){
-        ansInputs[idx].value = rec || '';
+      // OCR이 빈 결과를 돌려줘도 사용자의 입력칸을 비우지 않음 — 정답 확인 시 다시 인식함
+      if(ansInputs[idx] && rec){
+        ansInputs[idx].value = rec;
         ansInputs[idx].classList.remove('ok','bad');
       }
     }
@@ -3017,6 +3211,8 @@ function makeProblems(problems, onDone, label='정답 확인'){
   const clearAns = r.querySelector('.clear-answer-pads');
   if(clearAns) clearAns.addEventListener('click', ()=>{
     padHandlers.forEach(h => h && h.clear());
+    // 대기 중인 OCR 무효화
+    ocrTokens.forEach(tk => tk.n++);
     answerPads.forEach(p => p.classList.remove('correct','wrong'));
     // 입력칸도 같이 비움
     ansInputs.forEach(inp => { if(inp){ inp.value = ''; inp.classList.remove('ok','bad'); } });
@@ -3057,9 +3253,21 @@ function makeProblems(problems, onDone, label='정답 확인'){
     if(clearBtn) clearBtn.addEventListener('click', ()=>{ ctx.clearRect(0,0,canvas.width,canvas.height); });
   }
 
-  r.querySelector('#check').addEventListener('click', ()=>{
-    // OCR은 그리기 종료 시 이미 자동으로 입력칸을 채우므로, 여기선 입력 값만 검증
+  r.querySelector('#check').addEventListener('click', async ()=>{
     const checkBtn = r.querySelector('#check');
+    if(checkBtn.disabled) return;
+    // 정답 확인 시 손글씨 답 패드를 강제로 한 번 더 OCR 인식 → 입력칸을 최신 값으로 채움
+    checkBtn.disabled = true;
+    const origLabel = checkBtn.textContent;
+    checkBtn.textContent = '인식 중...';
+    await Promise.all(answerPads.map(async (pad, j)=>{
+      try {
+        const rec = await recognizeDigitsFromCanvas(pad);
+        if(rec && ansInputs[j]) ansInputs[j].value = rec;
+      } catch(e){ /* OCR 실패해도 입력값으로 검증 */ }
+    }));
+    checkBtn.textContent = origLabel;
+    checkBtn.disabled = false;
     let allOk = true;
     ansInputs.forEach((inp, j)=>{
       inp.classList.remove('ok','bad');
@@ -3176,7 +3384,7 @@ stageDefs[1] = [
   // ② 개념 학습 — 비와 비례식 (전항·후항, 같은 비율)
   ()=>{
     const r = el(`<div>
-      ${speech('빵 개수가 달라도 우유와 버터의 비율은 모두 같아요. 두 양을 비로 적을 때, 앞 수는 <b>전항</b>, 뒤 수는 <b>후항</b>이라고 해요!')}
+      ${speech('빵의 개수가 달라도 우유와 버터의 비율은 모두 같아요. 두 양을 비로 적을 때, 앞의 수는 <b>전항</b>, 뒤의 수는 <b>후항</b>이라고 해요.')}
       <div class="grid grid-cols-2 gap-4" style="align-items:stretch">
         <!-- 왼쪽: 비 (전항·후항) — 노란 박스와 동일한 높이로 자연스럽게 채움 -->
         <div class="bg-blue-50 p-4 rounded-2xl text-center" style="border:2px solid var(--tab-7);display:flex;flex-direction:column;justify-content:space-evenly;gap:6px">
@@ -3280,12 +3488,12 @@ stageDefs[1] = [
         </div>
 
         <!-- 오른쪽: ×2 / ×3 / ×4 / ×5 인터랙티브 -->
-        <div style="background:linear-gradient(135deg,#f5edff 0%,#ede0ff 100%);border:3px solid var(--tab-3);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:10px">
-          <div style="font-size:22px;color:var(--ink-soft);text-align:center">곱할 수를 골라봐요</div>
+        <div style="background:linear-gradient(135deg,#f5edff 0%,#ede0ff 100%);border:3px solid var(--tab-3);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+          <div style="font-size:24px;color:var(--ink-soft);text-align:center;font-weight:700">전항과 후항에 같은 수를 곱해봐요</div>
           <div style="text-align:center;display:flex;justify-content:center;gap:6px;flex-wrap:wrap">
-            ${[2,3,4,5].map(n=>`<button class="mult-btn" data-n="${n}" style="padding:8px 16px;font-size:24px">×${n}</button>`).join('')}
+            ${[2,3,4,5].map(n=>`<button class="mult-btn" data-n="${n}" style="padding:4px 10px;font-size:18px;border-radius:10px;margin:2px">×${n}</button>`).join('')}
           </div>
-          <div style="font-size:32px;font-family:'Pretendard Variable',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px;line-height:1.2">
+          <div style="font-size:40px;font-family:'Pretendard Variable',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;line-height:1.2">
             <span>1 : 3</span>
             <span style="color:var(--muted)">=</span>
             <span>1<span style="color:var(--tab-3-deep);margin:0 2px">×<span class="m-n">?</span></span></span>
@@ -3294,12 +3502,12 @@ stageDefs[1] = [
             <span style="color:var(--muted)">=</span>
             <span style="color:#e96f3c" class="m-result">? : ?</span>
           </div>
-          <div style="font-size:22px;color:var(--ink-soft);text-align:center" class="m-ratio">비율: ${F(1,3)} = ?</div>
+          <div style="font-size:30px;color:var(--ink-soft);text-align:center;font-weight:700" class="m-ratio">비율: ${F(1,3)} = ?</div>
         </div>
       </div>
 
       <div style="font-size:33px;color:var(--ink);text-align:center;font-weight:700;line-height:1.3">
-        3 : 2의 전항과 후항에 <b style="color:#ec6da4">2를 곱하여도</b> 비율은 같습니다.
+        3 : 2의 전항과 후항에 <b style="color:#ec6da4" id="m-text"><span style="color:var(--good)">2</span>를 곱하여도</b> 비율은 같습니다.
       </div>
 
       <div class="step-actions">
@@ -3307,6 +3515,7 @@ stageDefs[1] = [
       </div>
     </div>`);
 
+    const mulParticle = { 2:'를', 3:'을', 4:'를', 5:'를' };
     r.querySelectorAll('.mult-btn').forEach(b=>{
       b.addEventListener('click', ()=>{
         const n = +b.dataset.n;
@@ -3315,6 +3524,8 @@ stageDefs[1] = [
         r.querySelectorAll('.m-n').forEach(el=> el.textContent = n);
         r.querySelector('.m-result').textContent = `${1*n} : ${3*n}`;
         r.querySelector('.m-ratio').innerHTML = `비율: ${F(1,3)} = ${F(1*n, 3*n)} &nbsp;<span style="color:var(--good)">약분하면 같은 수예요.</span>`;
+        const mText = r.querySelector('#m-text');
+        if(mText) mText.innerHTML = `<span style="color:var(--good)">${n}</span>${mulParticle[n]||'을'} 곱하여도`;
       });
     });
 
@@ -3381,12 +3592,12 @@ stageDefs[1] = [
         </div>
 
         <!-- 오른쪽: ÷2 / ÷3 / ÷4 / ÷5 인터랙티브 -->
-        <div style="background:linear-gradient(135deg,#f5edff 0%,#ede0ff 100%);border:3px solid var(--tab-3);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:10px">
-          <div style="font-size:22px;color:var(--ink-soft);text-align:center">나눌 수를 골라봐요</div>
+        <div style="background:linear-gradient(135deg,#f5edff 0%,#ede0ff 100%);border:3px solid var(--tab-3);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:12px">
+          <div style="font-size:24px;color:var(--ink-soft);text-align:center;font-weight:700">전항과 후항을 같은 수로 나누어봐요</div>
           <div style="text-align:center;display:flex;justify-content:center;gap:6px;flex-wrap:wrap">
-            ${[2,3,4,5].map(n=>`<button class="mult-btn" data-n="${n}" style="padding:8px 16px;font-size:24px">÷${n}</button>`).join('')}
+            ${[2,3,4,5].map(n=>`<button class="mult-btn" data-n="${n}" style="padding:4px 10px;font-size:18px;border-radius:10px;margin:2px">÷${n}</button>`).join('')}
           </div>
-          <div style="font-size:28px;font-family:'Pretendard Variable',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px;line-height:1.2">
+          <div style="font-size:36px;font-family:'Pretendard Variable',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;line-height:1.2">
             <span>60 : 120</span>
             <span style="color:var(--muted)">=</span>
             <span>60<span style="color:var(--tab-3-deep);margin:0 2px">÷<span class="m-n">?</span></span></span>
@@ -3395,12 +3606,12 @@ stageDefs[1] = [
             <span style="color:var(--muted)">=</span>
             <span style="color:#e96f3c" class="m-result">? : ?</span>
           </div>
-          <div style="font-size:22px;color:var(--ink-soft);text-align:center" class="m-ratio">비율: ${F(60,120)} = ?</div>
+          <div style="font-size:30px;color:var(--ink-soft);text-align:center;font-weight:700" class="m-ratio">비율: ${F(60,120)} = ?</div>
         </div>
       </div>
 
       <div style="font-size:33px;color:var(--ink);text-align:center;font-weight:700;line-height:1.3">
-        10 : 16의 전항과 후항을 <b style="color:#ec6da4">2로 나누어도</b> 비율은 같습니다.
+        10 : 16의 전항과 후항을 <b style="color:#ec6da4" id="m-text"><span style="color:var(--good)">2</span>로 나누어도</b> 비율은 같습니다.
       </div>
 
       <div class="step-actions">
@@ -3408,6 +3619,7 @@ stageDefs[1] = [
       </div>
     </div>`);
 
+    const divParticle = { 2:'로', 3:'으로', 4:'로', 5:'로' };
     r.querySelectorAll('.mult-btn').forEach(b=>{
       b.addEventListener('click', ()=>{
         const n = +b.dataset.n;
@@ -3416,6 +3628,8 @@ stageDefs[1] = [
         r.querySelectorAll('.m-n').forEach(el=> el.textContent = n);
         r.querySelector('.m-result').textContent = `${60/n} : ${120/n}`;
         r.querySelector('.m-ratio').innerHTML = `비율: ${F(60,120)} = ${F(60/n, 120/n)} &nbsp;<span style="color:var(--good)">약분하면 같은 수예요.</span>`;
+        const mText = r.querySelector('#m-text');
+        if(mText) mText.innerHTML = `<span style="color:var(--good)">${n}</span>${divParticle[n]||'로'} 나누어도`;
       });
     });
 
@@ -3438,13 +3652,21 @@ stageDefs[1] = [
   ()=>{
     const problems = [
       { a:3, b:5,  given:'R', givenVal:10, mult:2, ans:6,
-        story:'쿠키 3판에 설탕 5컵이 들어가요. 설탕 10컵이면 쿠키 몇 판? (쿠키판 : 설탕 = 3 : 5)' },
+        nameA:'쿠키판', nameB:'설탕',
+        story:'쿠키 3판에 설탕 5컵이 들어가요. 설탕 10컵이면 쿠키 몇 판?',
+        summary:'설탕이 10컵이면 쿠키는 6판 만들 수 있어요.' },
       { a:4, b:7,  given:'R', givenVal:14, mult:2, ans:8,
-        story:'도넛 4개에 초콜릿 7조각이 토핑돼요. 초콜릿 14조각이면 도넛 몇 개? (도넛 : 초콜릿 = 4 : 7)' },
+        nameA:'도넛', nameB:'초콜릿',
+        story:'도넛 4개에 초콜릿 7조각이 토핑돼요. 초콜릿 14조각이면 도넛 몇 개?',
+        summary:'초콜릿이 14조각이면 도넛은 8개 만들 수 있어요.' },
       { a:2, b:9,  given:'R', givenVal:27, mult:3, ans:6,
-        story:'케이크 2개에 딸기 9개가 올라가요. 딸기 27개라면 케이크는 몇 개? (케이크 : 딸기 = 2 : 9)' },
+        nameA:'케이크', nameB:'딸기',
+        story:'케이크 2개에 딸기 9개가 올라가요. 딸기 27개라면 케이크는 몇 개?',
+        summary:'딸기가 27개이면 케이크는 6개 만들 수 있어요.' },
       { a:5, b:6,  given:'L', givenVal:15, mult:3, ans:18,
-        story:'빵 5덩어리에 달걀 6개씩 들어가요. 빵 15덩어리라면 달걀은 몇 개? (빵 : 달걀 = 5 : 6)' },
+        nameA:'빵', nameB:'달걀',
+        story:'빵 5덩어리에 달걀 6개씩 들어가요. 빵 15덩어리라면 달걀은 몇 개?',
+        summary:'빵 15덩어리를 만들려면 달걀은 18개 필요해요.' },
     ];
     state.data.q = state.data.q ?? 0;
     state.data.score = state.data.score ?? 0;
@@ -3468,21 +3690,32 @@ stageDefs[1] = [
       <!-- 문제/점수는 상단 차시명 옆으로 옮김 — 여기는 노란 박스부터 시작 -->
       <div style="background:#fff7e0;border:3px solid var(--accent);border-radius:16px;padding:14px 24px;margin-bottom:8px;font-size:28px;text-align:center;font-weight:500;line-height:1.4"><b style="color:var(--accent)">📖</b> ${p.story||''}</div>
       <div class="work-card">
-        <div class="work-help" style="font-size:24px">전항·후항에 <b>같은 수</b>를 곱해서 빈칸을 채워요</div>
-        <div class="work-row" style="font-size:48px">${p.a} : ${p.b}</div>
+        <div class="work-help" style="font-size:24px">문제를 읽고 <b>${p.nameA} : ${p.nameB}</b>의 비를 빈칸에 직접 써 봐요</div>
+        <div class="work-row" style="font-size:40px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:relative">
+          <span style="font-size:26px;color:var(--ink)">${p.nameA} : ${p.nameB} =</span>
+          <input class="ans" data-id="iA" placeholder="?" style="width:80px;height:60px;font-size:36px" />
+          <span style="font-size:36px;color:var(--muted)">:</span>
+          <input class="ans" data-id="iB" placeholder="?" style="width:80px;height:60px;font-size:36px" />
+          <!-- 정답 시 나타나는 정리 팝업 — 쿠키판:설탕 위쪽에 말풍선처럼 (크게) -->
+          <div id="summary" style="display:none;position:absolute;left:50%;bottom:calc(100% + 18px);transform:translateX(-50%);background:white;border:4px solid var(--good);border-radius:22px;padding:22px 38px;font-size:32px;color:var(--good);text-align:center;font-weight:800;line-height:1.4;box-shadow:0 8px 24px rgba(45,191,148,.4);z-index:20;max-width:min(92vw,860px);width:max-content">
+            <div style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:18px solid var(--good)"></div>
+            <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:14px solid white"></div>
+            <span id="summary-text"></span>
+          </div>
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;margin:10px 0">
           <div class="text-center" style="background:#fff7ed;border:2px solid #fb923c;border-radius:14px;padding:14px">
-            <div style="font-size:24px;color:var(--ink-soft);margin-bottom:6px">전항</div>
-            <div style="font-size:34px">${p.a} × <input class="ans" data-id="m1" placeholder="?" style="width:72px;height:60px;font-size:34px" /> = <input class="ans" data-id="rL" placeholder="?" style="width:72px;height:60px;font-size:34px" ${givenL?`value="${givenL}" readonly`:''} /></div>
+            <div style="font-size:24px;color:#ec6da4;font-weight:800;margin-bottom:6px">전항</div>
+            <div style="font-size:34px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap"><span id="frontA">?</span> × <input class="ans" data-id="m1" placeholder="?" style="width:72px;height:60px;font-size:34px;color:#ec6da4;border-color:#f9a8c5;font-weight:800" /> = <input class="ans" data-id="rL" placeholder="?" style="width:72px;height:60px;font-size:34px" ${givenL?`value="${givenL}" readonly`:''} /></div>
           </div>
           <div class="text-center" style="background:#eff6ff;border:2px solid var(--tab-7);border-radius:14px;padding:14px">
-            <div style="font-size:24px;color:var(--ink-soft);margin-bottom:6px">후항</div>
-            <div style="font-size:34px">${p.b} × <input class="ans" data-id="m2" placeholder="?" style="width:72px;height:60px;font-size:34px" /> = <input class="ans" data-id="rR" placeholder="?" style="width:72px;height:60px;font-size:34px" ${givenR?`value="${givenR}" readonly`:''} /></div>
+            <div style="font-size:24px;color:#ec6da4;font-weight:800;margin-bottom:6px">후항</div>
+            <div style="font-size:34px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap"><span id="backB">?</span> × <input class="ans" data-id="m2" placeholder="?" style="width:72px;height:60px;font-size:34px;color:#ec6da4;border-color:#f9a8c5;font-weight:800" /> = <input class="ans" data-id="rR" placeholder="?" style="width:72px;height:60px;font-size:34px" ${givenR?`value="${givenR}" readonly`:''} /></div>
           </div>
         </div>
         <div class="text-center" style="font-size:24px;color:var(--ink-soft);margin-top:4px">결과</div>
         <div class="work-row" style="font-size:48px;color:var(--tab-3-deep)">
-          ${p.a} : ${p.b} = <span id="dL" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">${givenL || '?'}</span> : <span id="dR" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">${givenR || '?'}</span>
+          <span id="oL" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">?</span> : <span id="oR" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">?</span> = <span id="dL" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">${givenL || '?'}</span> : <span id="dR" style="display:inline-block;min-width:60px;text-align:center;border-bottom:3px solid currentColor">${givenR || '?'}</span>
         </div>
       </div>
       <div class="step-actions">
@@ -3490,25 +3723,39 @@ stageDefs[1] = [
       </div>
     </div>`);
     const dL = r.querySelector('#dL'), dR = r.querySelector('#dR');
+    const oL = r.querySelector('#oL'), oR = r.querySelector('#oR');
+    const frontA = r.querySelector('#frontA'), backB = r.querySelector('#backB');
+    const iAInp = r.querySelector('[data-id="iA"]'), iBInp = r.querySelector('[data-id="iB"]');
     const rLInp = r.querySelector('[data-id="rL"]'), rRInp = r.querySelector('[data-id="rR"]');
     const refreshDisplay = ()=>{
+      const ia = (iAInp.value||'').trim(), ib = (iBInp.value||'').trim();
+      oL.textContent = ia || '?';
+      oR.textContent = ib || '?';
+      frontA.textContent = ia || '?';
+      backB.textContent = ib || '?';
       if(p.given !== 'L'){ const v = (rLInp.value||'').trim(); dL.textContent = v || '?'; }
       if(p.given !== 'R'){ const v = (rRInp.value||'').trim(); dR.textContent = v || '?'; }
     };
+    iAInp.addEventListener('input', refreshDisplay);
+    iBInp.addEventListener('input', refreshDisplay);
     rLInp.addEventListener('input', refreshDisplay);
     rRInp.addEventListener('input', refreshDisplay);
     r.querySelector('#check').addEventListener('click', ()=>{
+      const iA = r.querySelector('[data-id="iA"]'), iB = r.querySelector('[data-id="iB"]');
       const m1 = r.querySelector('[data-id="m1"]'), m2 = r.querySelector('[data-id="m2"]');
       const rL = r.querySelector('[data-id="rL"]'), rR = r.querySelector('[data-id="rR"]');
+      const iAv = (iA.value||'').trim(), iBv = (iB.value||'').trim();
       const m1v = (m1.value||'').trim(), m2v = (m2.value||'').trim();
       const rLv = (rL.value||'').trim(), rRv = (rR.value||'').trim();
       const expected = {
+        iA: String(p.a),
+        iB: String(p.b),
         m1: String(p.mult),
         m2: String(p.mult),
         rL: String(p.given==='L' ? p.givenVal : p.ans),
         rR: String(p.given==='R' ? p.givenVal : p.ans),
       };
-      const checks = [[m1,m1v,expected.m1],[m2,m2v,expected.m2],[rL,rLv,expected.rL],[rR,rRv,expected.rR]];
+      const checks = [[iA,iAv,expected.iA],[iB,iBv,expected.iB],[m1,m1v,expected.m1],[m2,m2v,expected.m2],[rL,rLv,expected.rL],[rR,rRv,expected.rR]];
       let allOk = true;
       checks.forEach(([inp,v,exp])=>{
         inp.classList.remove('ok','bad');
@@ -3517,10 +3764,18 @@ stageDefs[1] = [
       });
       if(allOk){
         state.data.score = (state.data.score||0) + 1;
+        const summaryEl = r.querySelector('#summary');
+        const summaryTxt = r.querySelector('#summary-text');
+        if(summaryEl && summaryTxt){
+          summaryTxt.textContent = `💡 ${p.summary}`;
+          summaryEl.style.display = 'block';
+        }
         const advance = ()=>{ state.data.q = (state.data.q||0) + 1; render(); };
         toast('', true, { onNext: advance });
       } else {
-        if(m1v && m2v && m1v !== m2v){
+        if(iAv && iBv && (iAv !== expected.iA || iBv !== expected.iB)){
+          toast('문제에서 비를 다시 찾아 써 봐요', false);
+        } else if(m1v && m2v && m1v !== m2v){
           toast('전항과 후항에 같은 수를 곱해야 해요', false);
         } else {
           toast('다시 풀어볼까요?', false);
@@ -3674,15 +3929,35 @@ stageDefs[1] = [
         </div>
       `;
       setupScratch();
-      // 손글씨 답 패드 setup
+      // 손글씨 답 패드 setup — 그리기 종료 시 OCR로 메인 입력칸을 자동 채움
       const padA = r.querySelector('.answer-pad[data-target="ga"]');
       const padB = r.querySelector('.answer-pad[data-target="gb"]');
-      G.padA_h = setupAnswerPad(padA);
-      G.padB_h = setupAnswerPad(padB);
+      G.ocrTokenA = { n: 0 };
+      G.ocrTokenB = { n: 0 };
+      G.padA_h = setupAnswerPad(padA, {
+        onChange: async () => {
+          const tk = G.ocrTokenA; const myN = ++tk.n;
+          const rec = await recognizeDigitsFromCanvas(padA);
+          if(myN !== tk.n) return;
+          const a = r.querySelector('[data-id="ga"]');
+          if(a && rec){ a.value = rec; a.classList.remove('ok','bad'); a.style.color=''; a.style.borderColor=''; a.style.background=''; }
+        }
+      });
+      G.padB_h = setupAnswerPad(padB, {
+        onChange: async () => {
+          const tk = G.ocrTokenB; const myN = ++tk.n;
+          const rec = await recognizeDigitsFromCanvas(padB);
+          if(myN !== tk.n) return;
+          const b = r.querySelector('[data-id="gb"]');
+          if(b && rec){ b.value = rec; b.classList.remove('ok','bad'); b.style.color=''; b.style.borderColor=''; b.style.background=''; }
+        }
+      });
       const clearAns = r.querySelector('.clear-answer-pads');
       if(clearAns) clearAns.addEventListener('click', ()=>{
         if(G.padA_h) G.padA_h.clear();
         if(G.padB_h) G.padB_h.clear();
+        if(G.ocrTokenA) G.ocrTokenA.n++;
+        if(G.ocrTokenB) G.ocrTokenB.n++;
         padA.classList.remove('correct','wrong');
         padB.classList.remove('correct','wrong');
       });
@@ -3714,6 +3989,9 @@ stageDefs[1] = [
       // 손글씨 답 패드 초기화 (이전 문제의 그림·표시 제거)
       if(G.padA_h) G.padA_h.clear();
       if(G.padB_h) G.padB_h.clear();
+      // 대기 중인 OCR 결과 무효화 — 이전 문제의 OCR이 새 문제 입력칸에 잘못 들어가는 것 방지
+      if(G.ocrTokenA) G.ocrTokenA.n++;
+      if(G.ocrTokenB) G.ocrTokenB.n++;
       const padA = r.querySelector('.answer-pad[data-target="ga"]');
       const padB = r.querySelector('.answer-pad[data-target="gb"]');
       if(padA) padA.classList.remove('correct','wrong');
@@ -4296,97 +4574,118 @@ stageDefs[3] = [
     });
     return r;
   },
-  // ③ 핵심 정리 — 비례식 한눈에 정리 + 미니 확인
+  // ③ 핵심 정리 — 3개 하위 페이지 (비례식이란 / 외항·내항 / 직접 찾기)
   ()=>{
-    const r = el(`<div>
-      ${speech('🍞 오늘 배운 <b>비례식·외항·내항</b>을 한 번에 정리해 봐요! 아래 정리표를 살펴본 다음, 새로운 비례식으로 외항·내항을 직접 찾아 봐요.')}
+    state.data.sub = state.data.sub ?? 0;
+    const wrapper = el(`<div class="recap-wrap" style="display:flex;flex-direction:column;height:100%;gap:8px"></div>`);
 
-      <!-- 2단 정리 카드 -->
-      <div class="grid grid-cols-2 gap-3">
-        <!-- 왼쪽: 비례식이란? -->
-        <div style="background:#fff8e1;border:3px solid var(--accent);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
-          <div style="font-size:22px;font-weight:800;color:var(--accent);text-align:center">📜 비례식이란?</div>
-          <div style="font-size:17px;line-height:1.5;text-align:center;color:var(--ink)">
-            비율이 같은 두 비를<br>
-            <b style="font-size:20px">등호 <span style="color:#ec6da4">=</span> 로 이은 식</b>
-          </div>
-          <div style="background:white;border-radius:10px;padding:6px 10px;text-align:center;font-size:26px;font-weight:800">
-            1 : 2 <span style="color:#ec6da4">=</span> 3 : 6
-          </div>
-          <div style="text-align:center;font-size:14px;color:var(--ink-soft)">
-            1/2 = 3/6 (둘 다 0.5) → 같은 비율 ✓
-          </div>
-        </div>
-
-        <!-- 오른쪽: 외항·내항 -->
-        <div style="background:#f5edff;border:3px solid var(--tab-3);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:6px">
-          <div style="font-size:22px;font-weight:800;color:var(--tab-3-deep);text-align:center">⚖️ 외항과 내항</div>
-          <div style="background:white;border-radius:10px;padding:6px 10px;text-align:center;font-size:32px;font-weight:800;line-height:1.1">
-            <span style="color:#ec6da4">4</span> : <span style="color:#a78bfa">3</span> = <span style="color:#a78bfa">36</span> : <span style="color:#ec6da4">27</span>
-          </div>
-          <div style="display:flex;justify-content:space-around;font-size:15px;line-height:1.4">
-            <div style="text-align:center">
-              <div style="color:#ec6da4;font-weight:800;font-size:17px">외항</div>
-              <div>바깥쪽 두 수<br>(<b>4, 27</b>)</div>
+    function renderSub(){
+      wrapper.innerHTML = '';
+      const sub = state.data.sub|0;
+      if(sub === 0){
+        // 비례식이란?
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('두 비를 등호로 이은 식이 <b>비례식</b>이에요. 같은 비율 두 개를 한 줄로 표현해요.')}
+          <div class="bg-yellow-50 rounded-2xl" style="padding:30px 28px;border:3px solid var(--accent);flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:18px">
+            <div style="font-size:30px;font-weight:800;color:var(--accent);text-align:center">📜 비례식이란?</div>
+            <div style="font-size:30px;line-height:1.55;text-align:center;color:var(--ink)">
+              비율이 같은 두 비를 <b style="font-size:34px">등호 <span style="color:#ec6da4">=</span> 로 이은 식</b>이에요.
             </div>
-            <div style="text-align:center">
-              <div style="color:#a78bfa;font-weight:800;font-size:17px">내항</div>
-              <div>안쪽 두 수<br>(<b>3, 36</b>)</div>
+            <div style="background:white;border-radius:14px;padding:22px;text-align:center;font-size:64px;font-weight:800">
+              1 : 2 <span style="color:#ec6da4">=</span> 3 : 6
+            </div>
+            <div style="text-align:center;font-size:28px;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+              <span>${F(1,2)}</span><span>=</span><span>${F(3,6)}</span><span>(둘 다 0.5) → 같은 비율 ✓</span>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- 미니 확인 -->
-      <div style="background:#e3f7ee;border:2px solid var(--good);border-radius:14px;padding:10px 16px;margin-top:6px">
-        <div style="font-size:17px;color:#1e8e6c;font-weight:800;text-align:center;margin-bottom:4px">🔎 한 번 확인 — 새 비례식의 외항과 내항을 찾아봐요!</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap">
-          <div style="font-size:36px;font-weight:800">5 : 2 = 25 : 10</div>
-          <div style="display:flex;gap:10px">
-            <div style="text-align:center">
-              <div style="font-size:14px;color:var(--ink-soft);margin-bottom:2px">외항 두 수</div>
-              <input class="ans recap-ans" data-id="out" placeholder="예: 4, 27" style="width:120px;font-size:18px;text-align:center" />
+          <div class="step-actions">
+            <button id="next" class="btn btn-pink">다음 →</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#next').addEventListener('click',()=>{ state.data.sub = 1; render(); });
+      } else if(sub === 1){
+        // 외항·내항
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('비례식에서 <b>바깥쪽 두 수</b>는 외항, <b>안쪽 두 수</b>는 내항이라고 해요.')}
+          <div class="bg-purple-50 rounded-2xl" style="padding:28px 32px;border:3px solid var(--tab-3);flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:20px">
+            <div style="font-size:30px;font-weight:800;color:var(--tab-3-deep);text-align:center">💜 외항과 내항</div>
+            <div style="background:white;border-radius:14px;padding:22px;text-align:center;font-size:64px;font-weight:800;line-height:1.15">
+              <span style="color:#ec6da4">4</span> : <span style="color:#a78bfa">3</span> = <span style="color:#a78bfa">36</span> : <span style="color:#ec6da4">27</span>
             </div>
-            <div style="text-align:center">
-              <div style="font-size:14px;color:var(--ink-soft);margin-bottom:2px">내항 두 수</div>
-              <input class="ans recap-ans" data-id="in" placeholder="예: 3, 36" style="width:120px;font-size:18px;text-align:center" />
+            <div style="display:flex;justify-content:space-around;font-size:28px;line-height:1.55">
+              <div style="text-align:center">
+                <div style="color:#ec6da4;font-weight:800;font-size:30px">외항 (바깥쪽)</div>
+                <div><b style="font-size:32px">4, 27</b></div>
+              </div>
+              <div style="text-align:center">
+                <div style="color:#a78bfa;font-weight:800;font-size:30px">내항 (안쪽)</div>
+                <div><b style="font-size:32px">3, 36</b></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div style="text-align:center;font-size:13px;color:var(--ink-soft);margin-top:4px">
-          💡 두 수를 <b>쉼표(,)</b>로 구분해서 적어주세요 (순서는 상관없어요)
-        </div>
-      </div>
-
-      <div class="step-actions">
-        <button id="check" class="btn btn-blue">정답 확인</button>
-      </div>
-    </div>`);
-
-    // 외항: 5, 10 / 내항: 2, 25 (순서 무관 — 숫자 오름차순으로 정규화)
-    function normalizePair(s){
-      return (s||'').split(/[, /]+/).map(x => x.trim()).filter(Boolean)
-        .sort((a,b) => Number(a) - Number(b)).join(',');
-    }
-    const expected = { out:'5,10', in:'2,25' };
-
-    r.querySelector('#check').addEventListener('click', ()=>{
-      const oInp = r.querySelector('[data-id="out"]');
-      const iInp = r.querySelector('[data-id="in"]');
-      oInp.classList.remove('ok','bad');
-      iInp.classList.remove('ok','bad');
-      const oOk = normalizePair(oInp.value) === expected.out;
-      const iOk = normalizePair(iInp.value) === expected.in;
-      oInp.classList.add(oOk ? 'ok' : 'bad');
-      iInp.classList.add(iOk ? 'ok' : 'bad');
-      if(oOk && iOk){
-        r.querySelector('#check').disabled = true;
-        toast('정리 완료!', true);
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="next" class="btn btn-pink">다음 →</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub = 0; render(); });
+        p.querySelector('#next').addEventListener('click',()=>{ state.data.sub = 2; render(); });
       } else {
-        toast('외항·내항을 다시 확인해 봐요', false);
+        // 직접 찾아보기
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('새로운 비례식에서 외항·내항을 직접 찾아 적어 봐요!')}
+          <div class="bg-green-50 rounded-2xl" style="padding:26px 30px;border:3px solid var(--good);flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:18px">
+            <div style="font-size:30px;font-weight:800;color:#1e8e6c;text-align:center">💚 직접 찾아보기</div>
+            <div style="background:white;border-radius:14px;padding:22px;text-align:center;font-size:60px;font-weight:800">5 : 2 = 25 : 10</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap">
+              <div style="text-align:center">
+                <div style="font-size:26px;color:#1e8e6c;font-weight:800;margin-bottom:6px">외항 두 수</div>
+                <input class="ans recap-ans" data-id="out" placeholder="예: 4, 27" style="width:200px;font-size:28px;text-align:center;height:54px" />
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:26px;color:#1e8e6c;font-weight:800;margin-bottom:6px">내항 두 수</div>
+                <input class="ans recap-ans" data-id="in" placeholder="예: 3, 36" style="width:200px;font-size:28px;text-align:center;height:54px" />
+              </div>
+            </div>
+            <div style="text-align:center;font-size:20px;color:var(--ink-soft)">
+              💡 두 수를 <b>쉼표(,)</b>로 구분해서 적어 주세요 (순서는 상관없어요)
+            </div>
+          </div>
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="check" class="btn btn-blue">정답 확인</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub = 1; render(); });
+        function normalizePair(s){
+          return (s||'').split(/[, /]+/).map(x => x.trim()).filter(Boolean)
+            .sort((a,b) => Number(a) - Number(b)).join(',');
+        }
+        const expected = { out:'5,10', in:'2,25' };
+        p.querySelector('#check').addEventListener('click',()=>{
+          const oInp = p.querySelector('[data-id="out"]');
+          const iInp = p.querySelector('[data-id="in"]');
+          oInp.classList.remove('ok','bad');
+          iInp.classList.remove('ok','bad');
+          const oOk = normalizePair(oInp.value) === expected.out;
+          const iOk = normalizePair(iInp.value) === expected.in;
+          oInp.classList.add(oOk ? 'ok' : 'bad');
+          iInp.classList.add(iOk ? 'ok' : 'bad');
+          if(oOk && iOk){
+            p.querySelector('#check').disabled = true;
+            state.data.sub = 0;
+            toast('정리 완료!', true, { onNext: nextStep });
+          } else {
+            toast('외항·내항을 다시 확인해 봐요', false);
+          }
+        });
       }
-    });
-    return r;
+    }
+    renderSub();
+    return wrapper;
   },
   // ④ 실생활 퀴즈 — 베이커리 레시피의 같은 비율 만들기
   ()=>{
@@ -4419,26 +4718,45 @@ stageDefs[4] = [
   // ① 문제 상황 — 사장님의 레시피북 (외항·내항의 곱 발견)
   ()=>{
     const r = el(`<div>
-      ${storyIntro(4, `<div style="font-size:18px;color:var(--ink-soft);text-align:center;margin-bottom:4px">레시피북에 적힌 비례식 — 외항의 곱과 내항의 곱을 직접 계산해 봐요!</div>`)}
-      <div class="bg-yellow-50 rounded-2xl" style="padding:12px 14px;margin:4px 0">
-        <div style="font-size:26px;font-weight:800;text-align:center;margin-bottom:8px">
-          <span class="term-out">2</span> : <span class="term-in">3</span> = <span class="term-in">4</span> : <span class="term-out">6</span>
+      ${storyIntro(4)}
+      <div class="bg-yellow-50 rounded-2xl" style="padding:10px 14px;margin:4px 0">
+        <!-- 외항·내항 브래킷 도식 (콤팩트하게) -->
+        <div style="display:flex;justify-content:center;align-items:center;margin:2px 0 6px">
+          <svg viewBox="0 0 640 240" width="100%" style="display:block;max-width:480px">
+            <text x="320" y="32" text-anchor="middle" font-size="28" fill="#ec6da4" font-weight="bold" font-family="Jua, sans-serif">외항</text>
+            <line x1="120" y1="100" x2="120" y2="56"  stroke="#ec6da4" stroke-width="3" stroke-linecap="round"/>
+            <line x1="120" y1="56"  x2="270" y2="56"  stroke="#ec6da4" stroke-width="3" stroke-linecap="round"/>
+            <line x1="370" y1="56"  x2="520" y2="56"  stroke="#ec6da4" stroke-width="3" stroke-linecap="round"/>
+            <line x1="520" y1="56"  x2="520" y2="100" stroke="#ec6da4" stroke-width="3" stroke-linecap="round"/>
+            <text x="120" y="152" text-anchor="middle" font-size="50" font-weight="800" fill="#ec6da4" font-family="Pretendard Variable, sans-serif">2</text>
+            <text x="180" y="150" text-anchor="middle" font-size="40" fill="#7a5e3e">:</text>
+            <text x="240" y="152" text-anchor="middle" font-size="50" font-weight="800" fill="#f4b53c" font-family="Pretendard Variable, sans-serif">3</text>
+            <text x="320" y="150" text-anchor="middle" font-size="40" fill="#7a5e3e">=</text>
+            <text x="400" y="152" text-anchor="middle" font-size="50" font-weight="800" fill="#f4b53c" font-family="Pretendard Variable, sans-serif">4</text>
+            <text x="460" y="150" text-anchor="middle" font-size="40" fill="#7a5e3e">:</text>
+            <text x="520" y="152" text-anchor="middle" font-size="50" font-weight="800" fill="#ec6da4" font-family="Pretendard Variable, sans-serif">6</text>
+            <line x1="240" y1="170" x2="240" y2="198" stroke="#f4b53c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="240" y1="198" x2="290" y2="198" stroke="#f4b53c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="350" y1="198" x2="400" y2="198" stroke="#f4b53c" stroke-width="3" stroke-linecap="round"/>
+            <line x1="400" y1="170" x2="400" y2="198" stroke="#f4b53c" stroke-width="3" stroke-linecap="round"/>
+            <text x="320" y="226" text-anchor="middle" font-size="28" fill="#d97706" font-weight="bold" font-family="Jua, sans-serif">내항</text>
+          </svg>
         </div>
         <div class="grid grid-cols-2 gap-3 text-center">
-          <div class="bg-purple-100 rounded-xl" style="padding:10px 12px">
-            <div style="font-size:18px;color:var(--ink-soft);margin-bottom:4px">외항의 곱</div>
-            <div style="font-size:26px;font-weight:800">
-              <span class="term-out">2</span> × <span class="term-out">6</span> = <input class="ans" data-id="a" />
+          <div class="bg-purple-100 rounded-xl" style="padding:10px 14px">
+            <div style="font-size:22px;color:#ec6da4;margin-bottom:4px;font-weight:800">외항의 곱</div>
+            <div style="font-size:30px;font-weight:800">
+              <span style="color:#ec6da4">2</span> × <span style="color:#ec6da4">6</span> = <input class="ans" data-id="a" style="width:74px;height:50px;font-size:26px" />
             </div>
           </div>
-          <div class="bg-orange-100 rounded-xl" style="padding:10px 12px">
-            <div style="font-size:18px;color:var(--ink-soft);margin-bottom:4px">내항의 곱</div>
-            <div style="font-size:26px;font-weight:800">
-              <span class="term-in">3</span> × <span class="term-in">4</span> = <input class="ans" data-id="b" />
+          <div class="bg-orange-100 rounded-xl" style="padding:10px 14px">
+            <div style="font-size:22px;color:#d97706;margin-bottom:4px;font-weight:800">내항의 곱</div>
+            <div style="font-size:30px;font-weight:800">
+              <span style="color:#f4b53c">3</span> × <span style="color:#f4b53c">4</span> = <input class="ans" data-id="b" style="width:74px;height:50px;font-size:26px" />
             </div>
           </div>
         </div>
-        <div id="reveal" class="hidden text-center font-bold text-green-600" style="font-size:20px;margin-top:8px">
+        <div id="reveal" class="hidden text-center font-bold text-green-600" style="font-size:24px;margin-top:8px">
           🎉 발견! 외항의 곱 = 내항의 곱 = 12
         </div>
       </div>
@@ -4459,132 +4777,276 @@ stageDefs[4] = [
     });
     return r;
   },
-  // ② 개념 학습 — 외항의 곱·내항의 곱의 뜻과 성질 단계별 확인
+  // ② 개념 학습 — 3개 페이지 (외항의 곱 / 내항의 곱 / 비교)
   ()=>{
-    const r = el(`<div>
-      ${speech('🍞 외항의 곱과 내항의 곱이 정확히 무엇인지 먼저 살펴보고, 새로운 비례식에서도 두 곱이 정말 같은지 직접 계산해서 확인해 봐요!')}
+    state.data.sub2 = state.data.sub2 ?? 0;
+    const wrapper = el(`<div class="recap-wrap" style="display:flex;flex-direction:column;height:100%;gap:8px"></div>`);
 
-      <!-- 단계 1: 외항의 곱 / 내항의 곱 정의 -->
-      <div class="grid grid-cols-2 gap-3">
-        <div style="background:#f3e8ff;border:3px solid #a78bfa;border-radius:14px;padding:10px 14px">
-          <div style="font-size:18px;font-weight:800;color:#7c3aed;text-align:center;margin-bottom:4px">🔍 외항의 곱이란?</div>
-          <div style="font-size:15px;line-height:1.5;color:var(--ink);text-align:center">
-            비례식에서 <b>바깥쪽에 있는 두 수</b>를 곱한 값이에요.
+    function renderSub(){
+      wrapper.innerHTML = '';
+      const sub = state.data.sub2|0;
+      if(sub === 0){
+        // 외항의 곱 직접 계산
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:12px">
+          ${speech('비례식의 <b>바깥쪽 두 수(외항)</b>를 직접 곱해 봐요.')}
+          <div style="background:#f3e8ff;border:3px solid #a78bfa;border-radius:18px;padding:22px 24px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px">
+            <div style="font-size:28px;font-weight:800;color:#7c3aed;text-align:center">💜 1단계 — 외항의 곱을 구해봐요</div>
+            <!-- 외항 강조 도식 -->
+            <div style="background:white;border-radius:14px;padding:16px;text-align:center">
+              <svg viewBox="0 0 640 130" width="100%" style="display:block;max-width:560px;margin:0 auto">
+                <text x="320" y="32" text-anchor="middle" font-size="28" fill="#ec6da4" font-weight="bold" font-family="Jua, sans-serif">외항</text>
+                <line x1="120" y1="100" x2="120" y2="56" stroke="#ec6da4" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="120" y1="56" x2="270" y2="56" stroke="#ec6da4" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="370" y1="56" x2="520" y2="56" stroke="#ec6da4" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="520" y1="100" x2="520" y2="56" stroke="#ec6da4" stroke-width="3.5" stroke-linecap="round"/>
+                <text x="120" y="118" text-anchor="middle" font-size="52" font-weight="800" fill="#ec6da4" font-family="Pretendard Variable, sans-serif">4</text>
+                <text x="180" y="115" text-anchor="middle" font-size="42" fill="#7a5e3e">:</text>
+                <text x="240" y="118" text-anchor="middle" font-size="52" font-weight="800" fill="#3e2723" font-family="Pretendard Variable, sans-serif">3</text>
+                <text x="320" y="115" text-anchor="middle" font-size="42" fill="#7a5e3e">=</text>
+                <text x="400" y="118" text-anchor="middle" font-size="52" font-weight="800" fill="#3e2723" font-family="Pretendard Variable, sans-serif">36</text>
+                <text x="460" y="115" text-anchor="middle" font-size="42" fill="#7a5e3e">:</text>
+                <text x="520" y="118" text-anchor="middle" font-size="52" font-weight="800" fill="#ec6da4" font-family="Pretendard Variable, sans-serif">27</text>
+              </svg>
+            </div>
+            <div style="text-align:center;font-size:36px;font-weight:800">
+              <span style="color:#ec6da4">4</span> × <span style="color:#ec6da4">27</span> = <input class="ans" data-id="a" style="width:100px;height:60px;font-size:32px" />
+            </div>
           </div>
-          <div style="background:white;border-radius:10px;padding:6px 10px;margin-top:6px;text-align:center;font-size:22px;font-weight:800;line-height:1.2">
-            <span style="color:#ec6da4">4</span> : 3 = 36 : <span style="color:#ec6da4">27</span>
+          <div class="step-actions">
+            <button id="check" class="btn btn-blue">정답 확인</button>
           </div>
-          <div style="text-align:center;font-size:18px;font-weight:800;margin-top:4px">
-            <span style="color:#ec6da4">4</span> × <span style="color:#ec6da4">27</span> = <b style="color:var(--good)">108</b>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#check').addEventListener('click',()=>{
+          const a = p.querySelector('[data-id="a"]');
+          a.classList.remove('ok','bad');
+          if(a.value.trim() === '108'){
+            a.classList.add('ok');
+            p.querySelector('#check').disabled = true;
+            confetti();
+            setTimeout(()=>{ state.data.sub2 = 1; render(); }, 900);
+          } else { a.classList.add('bad'); toast('4 × 27을 다시 계산해 봐요', false); }
+        });
+      } else if(sub === 1){
+        // 내항의 곱 직접 계산
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:12px">
+          ${speech('이번엔 <b>안쪽 두 수(내항)</b>를 직접 곱해 봐요.')}
+          <div style="background:#fff3e0;border:3px solid #f4b53c;border-radius:18px;padding:22px 24px;flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px">
+            <div style="font-size:28px;font-weight:800;color:#d97706;text-align:center">🟡 2단계 — 내항의 곱을 구해봐요</div>
+            <!-- 내항 강조 도식 -->
+            <div style="background:white;border-radius:14px;padding:16px;text-align:center">
+              <svg viewBox="0 0 640 130" width="100%" style="display:block;max-width:560px;margin:0 auto">
+                <text x="120" y="40" text-anchor="middle" font-size="52" font-weight="800" fill="#3e2723" font-family="Pretendard Variable, sans-serif">4</text>
+                <text x="180" y="38" text-anchor="middle" font-size="42" fill="#7a5e3e">:</text>
+                <text x="240" y="40" text-anchor="middle" font-size="52" font-weight="800" fill="#f4b53c" font-family="Pretendard Variable, sans-serif">3</text>
+                <text x="320" y="38" text-anchor="middle" font-size="42" fill="#7a5e3e">=</text>
+                <text x="400" y="40" text-anchor="middle" font-size="52" font-weight="800" fill="#f4b53c" font-family="Pretendard Variable, sans-serif">36</text>
+                <text x="460" y="38" text-anchor="middle" font-size="42" fill="#7a5e3e">:</text>
+                <text x="520" y="40" text-anchor="middle" font-size="52" font-weight="800" fill="#3e2723" font-family="Pretendard Variable, sans-serif">27</text>
+                <line x1="240" y1="58" x2="240" y2="88" stroke="#f4b53c" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="240" y1="88" x2="290" y2="88" stroke="#f4b53c" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="350" y1="88" x2="400" y2="88" stroke="#f4b53c" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="400" y1="58" x2="400" y2="88" stroke="#f4b53c" stroke-width="3.5" stroke-linecap="round"/>
+                <text x="320" y="116" text-anchor="middle" font-size="28" fill="#d97706" font-weight="bold" font-family="Jua, sans-serif">내항</text>
+              </svg>
+            </div>
+            <div style="text-align:center;font-size:36px;font-weight:800">
+              <span style="color:#f4b53c">3</span> × <span style="color:#f4b53c">36</span> = <input class="ans" data-id="b" style="width:100px;height:60px;font-size:32px" />
+            </div>
           </div>
-        </div>
-        <div style="background:#fff3e0;border:3px solid #f4b53c;border-radius:14px;padding:10px 14px">
-          <div style="font-size:18px;font-weight:800;color:#d97706;text-align:center;margin-bottom:4px">🔍 내항의 곱이란?</div>
-          <div style="font-size:15px;line-height:1.5;color:var(--ink);text-align:center">
-            비례식에서 <b>안쪽에 있는 두 수</b>를 곱한 값이에요.
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="check" class="btn btn-blue">정답 확인</button>
           </div>
-          <div style="background:white;border-radius:10px;padding:6px 10px;margin-top:6px;text-align:center;font-size:22px;font-weight:800;line-height:1.2">
-            4 : <span style="color:#f4b53c">3</span> = <span style="color:#f4b53c">36</span> : 27
-          </div>
-          <div style="text-align:center;font-size:18px;font-weight:800;margin-top:4px">
-            <span style="color:#f4b53c">3</span> × <span style="color:#f4b53c">36</span> = <b style="color:var(--good)">108</b>
-          </div>
-        </div>
-      </div>
-
-      <!-- 단계 2: 두 곱 비교 + 의문 던지기 -->
-      <div style="background:#e3f7ee;border:2px solid var(--good);border-radius:12px;padding:8px 14px;text-align:center;font-size:16px;line-height:1.5">
-        외항의 곱 <b>108</b> 과 내항의 곱 <b>108</b> 이 정확히 같네요. 그렇다면 다른 비례식에서도 두 곱이 같을까요? 직접 계산해서 확인해 봐요!
-      </div>
-
-      <!-- 단계 3: 학생 직접 확인 -->
-      <div style="background:#fff8e1;border:3px solid var(--accent);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;gap:6px">
-        <div style="font-size:17px;font-weight:800;color:var(--accent);text-align:center">✏️ 새로운 비례식 5 : 8 = 10 : 16 에서도 직접 확인해 봐요</div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <div style="background:#f3e8ff;border-radius:10px;padding:8px 14px;font-size:20px;font-weight:800;text-align:center">
-            <div style="font-size:14px;color:#7c3aed;font-weight:800">외항의 곱</div>
-            <span style="color:#ec6da4">5</span> × <span style="color:#ec6da4">16</span> = <input class="ans" data-id="a" />
-          </div>
-          <div style="background:#fff3e0;border-radius:10px;padding:8px 14px;font-size:20px;font-weight:800;text-align:center">
-            <div style="font-size:14px;color:#d97706;font-weight:800">내항의 곱</div>
-            <span style="color:#f4b53c">8</span> × <span style="color:#f4b53c">10</span> = <input class="ans" data-id="b" />
-          </div>
-        </div>
-      </div>
-
-      <!-- 단계 4: 정답 시 등장하는 결론 -->
-      <div id="conclusion" style="display:none;background:#dcfce7;border:2px solid var(--good);border-radius:12px;padding:10px 14px;text-align:center;font-weight:800;font-size:18px;color:#1e8e6c">
-        📜 비례식의 성질을 발견했어요 — <span style="color:var(--good)">외항의 곱과 내항의 곱은 언제나 같다!</span>
-      </div>
-
-      <div class="step-actions">
-        <button id="check" class="btn btn-blue">정답 확인</button>
-      </div>
-    </div>`);
-
-    r.querySelector('#check').addEventListener('click',()=>{
-      const a = r.querySelector('[data-id="a"]');
-      const b = r.querySelector('[data-id="b"]');
-      const aOk = a.value.trim() === '80';
-      const bOk = b.value.trim() === '80';
-      a.classList.remove('ok','bad'); a.classList.add(aOk ? 'ok' : 'bad');
-      b.classList.remove('ok','bad'); b.classList.add(bOk ? 'ok' : 'bad');
-      if(aOk && bOk){
-        r.querySelector('#conclusion').style.display = '';
-        r.querySelector('#check').disabled = true;
-        toast('정확해요! 두 곱이 정말 같아요!');
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub2 = 0; render(); });
+        p.querySelector('#check').addEventListener('click',()=>{
+          const b = p.querySelector('[data-id="b"]');
+          b.classList.remove('ok','bad');
+          if(b.value.trim() === '108'){
+            b.classList.add('ok');
+            p.querySelector('#check').disabled = true;
+            confetti();
+            setTimeout(()=>{ state.data.sub2 = 2; render(); }, 900);
+          } else { b.classList.add('bad'); toast('3 × 36을 다시 계산해 봐요', false); }
+        });
       } else {
-        toast('두 곱을 다시 계산해 봐요', false);
+        // 새로운 비례식에서 두 곱 비교 — 초록 박스 여백 잘 활용, 결론은 별도 중앙 팝업
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:12px">
+          ${speech('새로운 비례식 <b>5 : 8 = 10 : 16</b> 에서도 두 곱이 같은지 직접 확인해봐요!')}
+          <div style="background:#e3f7ee;border:3px solid var(--good);border-radius:18px;padding:22px 28px;flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:16px">
+            <div style="font-size:30px;font-weight:800;color:#1e8e6c;text-align:center">💚 두 곱을 비교해봐요</div>
+            <div style="background:white;border-radius:14px;padding:18px;text-align:center;font-size:46px;font-weight:800">5 : 8 = 10 : 16</div>
+            <div style="display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap">
+              <div style="background:#f3e8ff;border:3px solid #a78bfa;border-radius:18px;padding:18px 26px;font-size:36px;font-weight:800;text-align:center;flex:1;min-width:260px;display:flex;flex-direction:column;justify-content:center;gap:10px">
+                <div style="font-size:24px;color:#7c3aed;font-weight:800">외항의 곱</div>
+                <div><span style="color:#ec6da4">5</span> × <span style="color:#ec6da4">16</span> = <input class="ans" data-id="a" style="width:110px;height:58px;font-size:32px" /></div>
+              </div>
+              <div style="background:#fff3e0;border:3px solid #f4b53c;border-radius:18px;padding:18px 26px;font-size:36px;font-weight:800;text-align:center;flex:1;min-width:260px;display:flex;flex-direction:column;justify-content:center;gap:10px">
+                <div style="font-size:24px;color:#d97706;font-weight:800">내항의 곱</div>
+                <div><span style="color:#f4b53c">8</span> × <span style="color:#f4b53c">10</span> = <input class="ans" data-id="b" style="width:110px;height:58px;font-size:32px" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="check" class="btn btn-blue">정답 확인</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub2 = 1; render(); });
+        p.querySelector('#check').addEventListener('click',()=>{
+          const a = p.querySelector('[data-id="a"]');
+          const b = p.querySelector('[data-id="b"]');
+          const aOk = a.value.trim() === '80';
+          const bOk = b.value.trim() === '80';
+          a.classList.remove('ok','bad'); a.classList.add(aOk ? 'ok' : 'bad');
+          b.classList.remove('ok','bad'); b.classList.add(bOk ? 'ok' : 'bad');
+          if(aOk && bOk){
+            p.querySelector('#check').disabled = true;
+            state.data.sub2 = 0;
+            // 중앙 큰 팝업으로 결론 표시 — 초록 박스와 다른 색으로 (오렌지·노랑)
+            confetti();
+            const overlay = el(`<div style="position:fixed;inset:0;background:rgba(74,56,38,.6);z-index:999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)">
+              <div style="background:white;border:6px solid #ec6da4;border-radius:28px;padding:42px 60px;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;max-width:80vw">
+                <div style="font-size:68px;margin-bottom:14px">📜✨</div>
+                <div style="font-size:44px;font-weight:800;color:#a3215f;line-height:1.4;margin-bottom:14px">비례식의 성질을 발견했어요!</div>
+                <div style="font-size:34px;font-weight:800;color:#3e2723;line-height:1.4;margin-bottom:28px">외항의 곱과 내항의 곱은<br><span style="color:#ec6da4;font-size:38px">언제나 같다!</span></div>
+                <button id="popup-next" class="btn btn-pink" style="font-size:28px;padding:16px 42px">다음 →</button>
+              </div>
+            </div>`);
+            document.body.appendChild(overlay);
+            overlay.querySelector('#popup-next').addEventListener('click', ()=>{
+              overlay.remove();
+              nextStep();
+            });
+          } else {
+            toast('두 곱을 다시 계산해 봐요', false);
+          }
+        });
       }
-    });
-    return r;
+    }
+    renderSub();
+    return wrapper;
   },
-  // ③ 핵심 정리 — 비례식의 성질로 빈칸 채우기
+  // ③ 핵심 정리 — 3개 하위 페이지 (문제 제시 / 비의 성질 / 외항·내항의 곱)
   ()=>{
-    const r = el(`<div>
-      ${speech('이제 사장님 레시피북에서 찾은 성질을 활용해 비례식의 빈칸을 찾아봐요! 두 가지 방법으로 풀 수 있어요.')}
-      <div class="bg-yellow-50 p-4 rounded-2xl mt-1 mb-2">
-        <div style="font-size:38px;font-weight:800;text-align:center;margin-bottom:6px">3 : 4 = 9 : <input class="ans" data-id="x" /></div>
-      </div>
-      <div class="grid md:grid-cols-2 gap-4 mt-2">
-        <div class="bg-white p-4 rounded-xl border-2 border-pink-300" style="font-size:22px;line-height:1.55">
-          <b class="text-pink-600" style="font-size:24px">방법 1. 비의 성질</b>
-          <div style="margin-top:6px">전항: 3 → 9 이려면 <b style="color:var(--tab-5)">×3</b></div>
-          <div>전항·후항에 같은 수를 곱하면</div>
-          <div>4 × 3 = <b style="color:var(--good);font-size:26px">12</b></div>
-        </div>
-        <div class="bg-white p-4 rounded-xl border-2 border-purple-300" style="font-size:22px;line-height:1.55">
-          <b class="text-purple-600" style="font-size:24px">방법 2. 외항·내항의 곱</b>
-          <div style="margin-top:6px">3 × ? = 4 × 9</div>
-          <div>3 × ? = 36</div>
-          <div>? = 36 ÷ 3 = <b style="color:var(--good);font-size:26px">12</b></div>
-        </div>
-      </div>
-      <div class="step-actions">
-        <button id="check" class="btn btn-blue">정답 확인</button>
-      </div>
-    </div>`);
-    r.querySelector('#check').addEventListener('click',()=>{
-      const x = r.querySelector('[data-id="x"]');
-      x.classList.remove('ok','bad');
-      if(x.value.trim()==='12'){
-        x.classList.add('ok');
-        r.querySelector('#check').disabled = true;
-        toast('맞았어요!');
-      } else { x.classList.add('bad'); toast('다시 풀어볼까요?', false); }
-    });
-    return r;
+    state.data.sub = state.data.sub ?? 0;
+    const wrapper = el(`<div class="recap-wrap" style="display:flex;flex-direction:column;height:100%;gap:8px"></div>`);
+
+    function renderSub(){
+      wrapper.innerHTML = '';
+      const sub = state.data.sub|0;
+      if(sub === 0){
+        // 1단계 — 문제 제시 (? 표시만, 다음 버튼)
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('사장님 레시피북에서 찾은 성질로 비례식의 빈칸을 채워봐요!')}
+          <div class="bg-yellow-50 rounded-2xl" style="padding:36px 36px;border:3px solid var(--accent);text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px">
+            <div style="font-size:32px;color:var(--accent);font-weight:800">📜 비례식의 빈칸을 찾아봐요</div>
+            <div style="font-size:96px;font-weight:800;letter-spacing:.02em">3 : 4 = 9 : <span style="display:inline-block;color:#ec6da4">?</span></div>
+            <div style="font-size:26px;color:var(--ink-soft)">다음 페이지에서 두 가지 방법으로 풀이를 살펴봐요</div>
+          </div>
+          <div class="step-actions">
+            <button id="next" class="btn btn-pink">다음 →</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        p.querySelector('#next').addEventListener('click',()=>{
+          state.data.sub = 1; render();
+        });
+      } else if(sub === 1){
+        // 2단계 — 비의 성질 (아래쪽 후항 결과 입력 → 위쪽 비례식 자동 동기화)
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('첫 번째 방법은 <b>비의 성질</b>이에요! 전항이 어떻게 바뀌었는지 보고, 후항도 같은 수로 곱해봐요.')}
+          <div class="bg-purple-50 rounded-2xl" style="padding:28px 36px;border:3px solid var(--tab-3);flex:1;display:flex;flex-direction:column;justify-content:space-around;align-items:center;gap:20px">
+            <div style="font-size:30px;font-weight:800;color:var(--tab-3-deep)">💜 방법 1. 비의 성질</div>
+            <div style="font-size:60px;font-weight:800">3 : 4 = 9 : <span class="sync-display" style="display:inline-block;min-width:100px;border-bottom:5px solid #ec6da4;color:#ec6da4;padding:0 12px;text-align:center">?</span></div>
+            <div style="font-size:44px;font-weight:800;line-height:1.4;text-align:center;color:var(--ink)">
+              <div>전항: <span style="color:#ec6da4">3 × 3 = 9</span></div>
+              <div style="margin-top:12px">후항: <span style="color:#ec6da4">4 × 3</span> = <input class="ans sync-input" data-id="x" placeholder="?" style="width:130px;height:78px;font-size:44px;text-align:center;color:var(--good);border:3px dashed var(--good);font-weight:800" /></div>
+            </div>
+          </div>
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="check" class="btn btn-blue">정답 확인</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        // 입력 → 위쪽 비례식 자동 동기화
+        const syncInput = p.querySelector('.sync-input');
+        const syncDisplay = p.querySelector('.sync-display');
+        if(syncInput && syncDisplay){
+          syncInput.addEventListener('input', ()=>{
+            const v = syncInput.value.trim();
+            syncDisplay.textContent = v || '?';
+          });
+        }
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub = 0; render(); });
+        p.querySelector('#check').addEventListener('click',()=>{
+          const x = p.querySelector('[data-id="x"]');
+          x.classList.remove('ok','bad');
+          if(x.value.trim()==='12'){
+            x.classList.add('ok');
+            p.querySelector('#check').disabled = true;
+            confetti();
+            setTimeout(()=>{ state.data.sub = 2; render(); }, 900);
+          } else { x.classList.add('bad'); toast('4 × 3 을 계산해봐요', false); }
+        });
+      } else {
+        // 3단계 — 외항·내항의 곱 (모든 ?가 동기화 블랭크, 최종 답 입력이 모두를 채움)
+        const p = el(`<div style="display:flex;flex-direction:column;flex:1;gap:14px">
+          ${speech('두 번째 방법은 <b>외항의 곱 = 내항의 곱</b>이에요! 마지막 칸에 답을 적으면 위쪽의 빈 칸들도 자동으로 채워져요.')}
+          <div class="bg-green-50 rounded-2xl" style="padding:24px 32px;border:3px solid var(--good);flex:1;display:flex;flex-direction:column;justify-content:space-around;align-items:center;gap:18px">
+            <div style="font-size:30px;font-weight:800;color:#1e8e6c">💚 방법 2. 외항·내항의 곱</div>
+            <div style="font-size:50px;font-weight:800">3 : 4 = 9 : <span class="sync-display" style="display:inline-block;min-width:90px;border-bottom:4px solid #ec6da4;color:#ec6da4;padding:0 10px;text-align:center">?</span></div>
+            <div style="font-size:36px;font-weight:800;line-height:1.8;text-align:left;color:var(--ink)">
+              <div>① 내항의 곱 = <span style="color:#f4b53c">4 × 9</span> = <b>36</b></div>
+              <div>② 외항의 곱 = <span style="color:#ec6da4">3 × <span class="sync-display" style="display:inline-block;min-width:60px;border-bottom:3px solid #ec6da4;color:#ec6da4;padding:0 6px;text-align:center">?</span></span> = <b>36</b></div>
+              <div>③ <span class="sync-display" style="display:inline-block;min-width:60px;border-bottom:3px solid var(--good);color:var(--good);padding:0 6px;text-align:center">?</span> = <span style="color:var(--good)">36 ÷ 3</span> = <input class="ans sync-input" data-id="x" placeholder="?" style="width:120px;height:64px;font-size:38px;text-align:center;color:var(--good);border:3px dashed var(--good);font-weight:800" /></div>
+            </div>
+          </div>
+          <div class="step-actions" style="display:flex;gap:10px;justify-content:center">
+            <button id="prev" class="btn btn-secondary">← 이전</button>
+            <button id="check" class="btn btn-blue">정답 확인</button>
+          </div>
+        </div>`);
+        wrapper.appendChild(p);
+        // 마지막 입력 → 모든 sync-display 자동 채움
+        const syncInput = p.querySelector('.sync-input');
+        const syncDisplays = p.querySelectorAll('.sync-display');
+        if(syncInput){
+          syncInput.addEventListener('input', ()=>{
+            const v = syncInput.value.trim();
+            syncDisplays.forEach(d => { d.textContent = v || '?'; });
+          });
+        }
+        p.querySelector('#prev').addEventListener('click',()=>{ state.data.sub = 1; render(); });
+        p.querySelector('#check').addEventListener('click',()=>{
+          const x = p.querySelector('[data-id="x"]');
+          x.classList.remove('ok','bad');
+          if(x.value.trim()==='12'){
+            x.classList.add('ok');
+            p.querySelector('#check').disabled = true;
+            state.data.sub = 0;
+            toast('정답이에요!', true, { onNext: nextStep });
+          } else { x.classList.add('bad'); toast('36 ÷ 3 을 계산해봐요', false); }
+        });
+      }
+    }
+    renderSub();
+    return wrapper;
   },
   // ④ 실생활 퀴즈 — 사장님 레시피북 빈칸 채우기
   ()=>{
     const probs = [
-      { label:'레시피북 속 비례식의 빈칸을 채우세요',
+      { label:'레시피북 속 비례식의 빈칸을 채우세요', labelFontSize:35,
         q:'5 : 6 = __ANS__ : 18', answers:['15'] },
-      { label:'레시피북 속 비례식의 빈칸을 채우세요',
+      { label:'레시피북 속 비례식의 빈칸을 채우세요', labelFontSize:35,
         q:'7 : 4 = 21 : __ANS__', answers:['12'] },
-      { label:'레시피북 속 비례식의 빈칸을 채우세요',
+      { label:'레시피북 속 비례식의 빈칸을 채우세요', labelFontSize:35,
         q:'__ANS__ : 9 = 4 : 12', answers:['3'] },
-      { label:'레시피북 속 비례식의 빈칸을 채우세요',
+      { label:'레시피북 속 비례식의 빈칸을 채우세요', labelFontSize:35,
         q:'8 : __ANS__ = 24 : 15', answers:['5'] },
     ];
     return makeProblems(probs, nextStep);
@@ -4696,19 +5158,18 @@ stageDefs[6] = [
   // ① 문제 상황 — 갓 구운 쿠키 나누기 (큰 글씨 + 분홍·초록 묶기 애니메이션)
   ()=>{
     const r = el(`<div>
-      <!-- 사장님 말풍선 — 글자 크기 확대 + 줄바꿈 -->
+      <!-- 사장님 말풍선 — 글자 크기 확대, 마지막 문장 줄바꿈 없이 이어 붙임 -->
       <div class="mentor">
         <div class="mentor-icon">${BAKER_SVG}</div>
         <div class="mentor-text" style="font-size:32px;line-height:1.45">
-          사장님이 갓 구운 쿠키 <b>10개</b>를 <b style="color:#a3215f">어린이 손님</b>과 <b style="color:#3f7820">어른 손님</b> 두 그룹에 <b>2 : 3</b>의 비로 나눠주려고 해요.<br>
-          어떻게 똑똑하게 비에 맞춰 나눠줄까요?
+          사장님이 갓 구운 쿠키 <b>10개</b>를 <b style="color:#a3215f">어린이 손님</b>과 <b style="color:#3f7820">어른 손님</b> 두 그룹에 <b>2 : 3</b>의 비로 나눠주려고 해요. 어떻게 똑똑하게 비에 맞춰 나눠줄까요?
         </div>
       </div>
 
       <!-- 쿠키 + 학생이 직접 나누는 활동 -->
       <div class="bg-yellow-50 rounded-2xl text-center" style="border:2px solid #fbbf24;padding:12px 18px;margin:6px 0">
-        <div style="font-size:28px;color:var(--ink);font-weight:700;margin-bottom:8px;line-height:1.4">
-          버튼을 눌러 쿠키 10개를 두 손님께 나눠 드려보세요
+        <div style="font-size:26px;color:var(--ink);font-weight:700;margin-bottom:8px;line-height:1.4">
+          버튼을 눌러 <b style="color:#a3215f">어린이 손님</b>에게 쿠키 <b>2개</b>, <b style="color:#3f7820">어른 손님</b>에게 쿠키 <b>3개</b>씩 쿠키를 모두 나누어 주세요.
         </div>
         <div id="distrib-display" style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:52px;margin:10px 0;min-height:80px"></div>
         <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:8px">
@@ -4816,29 +5277,26 @@ stageDefs[6] = [
     });
     return r;
   },
-  // ② 개념 학습 — 분홍·초록·분홍·초록 → 드래그해서 같은 색끼리 모으기
+  // ② 개념 학습 — 흩어진 작은 묶음을 큰 묶음으로 직접 묶기
   ()=>{
     const r = el(`<div>
-      ${speech('두 손님께 번갈아 한 묶음씩 나눠 드린 모습이에요. 마우스로 그림을 이동해서 <b>같은 색</b> 묶음끼리 모아봐요.')}
-      <div class="bg-blue-50 rounded-2xl text-center" style="padding:14px 18px;margin:8px 0">
-        <div style="font-size:22px;color:var(--ink);margin-bottom:10px;font-weight:700;line-height:1.5">
-          <span style="color:#a3215f">어린이 손님</span>에게 2개씩 2번, <span style="color:#3f7820">어른 손님</span>에게 3개씩 2번 나누어 드렸어요.
+      ${speech('앞에서 나눠 드린 쿠키예요. <b style="color:#a3215f">어린이 2개</b>와 <b style="color:#3f7820">어른 3개</b>를 한 줄로 묶어 <b>큰 묶음(5개)</b> 두 개를 직접 만들어 봐요!')}
+      <div class="bg-blue-50 rounded-2xl text-center" style="padding:12px 18px;margin:6px 0">
+        <!-- 묶기 / 다시 하기 버튼 — 그림 위쪽 -->
+        <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:10px">
+          <button id="make-bundle" style="font-family:'Jua',sans-serif;font-size:20px;font-weight:800;padding:10px 22px;border:3px solid var(--accent);border-radius:14px;background:#fff3d6;color:var(--accent);cursor:pointer;box-shadow:0 4px 0 rgba(243,158,44,.35)">
+            ✨ 큰 묶음으로 묶기
+          </button>
+          <button id="reset-bundle" style="font-family:'Jua',sans-serif;font-size:18px;font-weight:700;padding:8px 16px;border:2px solid var(--paper-deep);border-radius:14px;background:white;color:var(--ink);cursor:pointer">🧹 다시 하기</button>
         </div>
-        <!-- 묶음 4개 — 초기 순서: 분홍-초록-분홍-초록, 드래그로 재정렬 -->
-        <div id="groups-row" style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:14px 0;font-size:34px;min-height:80px">
-          <div class="cookie-bunch" data-color="pink"  style="background:#fbd6e4;padding:10px 16px;border-radius:16px;border:4px solid #ec6da4;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪</div>
-          <div class="cookie-bunch" data-color="green" style="background:#d8f1c6;padding:10px 16px;border-radius:16px;border:4px solid #84d05c;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪🍪</div>
-          <div class="cookie-bunch" data-color="pink"  style="background:#fbd6e4;padding:10px 16px;border-radius:16px;border:4px solid #ec6da4;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪</div>
-          <div class="cookie-bunch" data-color="green" style="background:#d8f1c6;padding:10px 16px;border-radius:16px;border:4px solid #84d05c;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪🍪</div>
-        </div>
-        <!-- 답 입력 — 정답 입력 시 옆에 곱셈식이 자동 표시 -->
-        <div style="font-size:22px;margin-top:14px;line-height:1.6;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
-          <span><span style="color:#a3215f">어린이 손님</span> - 분홍색 2개씩 2묶음 → 모두 <input class="ans" data-id="h" /> 개</span>
-          <span id="formula-h" style="color:#a3215f;font-weight:800;display:none;font-size:22px">(2 × 2 = 4)</span>
-        </div>
-        <div style="font-size:22px;margin-top:6px;line-height:1.6;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
-          <span><span style="color:#3f7820">어른 손님</span> - 초록색 3개씩 2묶음 → 모두 <input class="ans" data-id="n" /> 개</span>
-          <span id="formula-n" style="color:#3f7820;font-weight:800;display:none;font-size:22px">(3 × 2 = 6)</span>
+        <!-- 묶음 영역 — 학생이 큰 묶음을 만들면 점선이 둘러쌈 -->
+        <div id="bundle-area" style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:18px;margin:10px 0;min-height:100px"></div>
+        <!-- 정리 내용 — 묶음 완성 후 표시 (글씨 1.5배) -->
+        <div id="summary-area" style="display:none;font-size:33px;margin-top:14px;line-height:1.55;color:var(--ink);text-align:center;font-weight:700">
+          한 묶음(전체 <input class="ans" data-id="t" style="font-size:30px;width:70px;height:54px" /> 개) 중
+          <b style="color:#a3215f">어린이</b> <input class="ans" data-id="c" style="font-size:30px;width:70px;height:54px" /> 개,
+          <b style="color:#3f7820">어른</b> <input class="ans" data-id="a" style="font-size:30px;width:70px;height:54px" /> 개
+          <div style="font-size:27px;margin-top:8px;color:var(--ink-soft)">→ <b style="color:#a3215f">어린이</b> : <b style="color:#3f7820">어른</b> = <b>2 : 3</b> 의 비율이에요</div>
         </div>
       </div>
       <div class="step-actions">
@@ -4846,186 +5304,70 @@ stageDefs[6] = [
       </div>
     </div>`);
 
-    // 드래그 앤 드롭 (Pointer Events — 마우스·터치·펜 모두 지원)
-    let dragSrc = null;
-    let dragHover = null;
-    const bunches = r.querySelectorAll('.cookie-bunch');
+    const area = r.querySelector('#bundle-area');
+    const makeBtn = r.querySelector('#make-bundle');
+    const summary = r.querySelector('#summary-area');
+    let bundled = false;
 
-    function clearHover(){
-      if(dragHover){
-        dragHover.style.boxShadow = '';
-        dragHover = null;
-      }
-    }
-    function setHover(el){
-      if(dragHover !== el){
-        clearHover();
-        if(el && el !== dragSrc && el.classList && el.classList.contains('cookie-bunch')){
-          el.style.boxShadow = '0 0 0 4px #888, 0 0 0 8px rgba(0,0,0,.1)';
-          dragHover = el;
-        }
-      }
-    }
+    // 작은 묶음 HTML — 분홍2/초록3
+    const pinkSmall = `<div style="background:#fbd6e4;padding:8px 14px;border-radius:14px;border:4px solid #ec6da4;font-size:32px">🍪🍪</div>`;
+    const greenSmall = `<div style="background:#d8f1c6;padding:8px 14px;border-radius:14px;border:4px solid #84d05c;font-size:32px">🍪🍪🍪</div>`;
 
-    function findBunch(node){
-      while(node && (!node.classList || !node.classList.contains('cookie-bunch'))){
-        node = node.parentElement;
-      }
-      return node;
+    function renderLoose(){
+      // 묶기 전: 작은 묶음 4개가 한 줄로 흩어져 있음 (큰 점선 없음)
+      area.innerHTML = `
+        <div style="display:flex;align-items:center;gap:10px">${pinkSmall}</div>
+        <div style="display:flex;align-items:center;gap:10px">${greenSmall}</div>
+        <div style="display:flex;align-items:center;gap:10px">${pinkSmall}</div>
+        <div style="display:flex;align-items:center;gap:10px">${greenSmall}</div>
+      `;
+      bundled = false;
     }
 
-    bunches.forEach(b => {
-      b.addEventListener('pointerdown', e => {
-        e.preventDefault();
-        dragSrc = b;
-        b.style.opacity = '0.55';
-        b.style.cursor = 'grabbing';
-        b.style.transform = 'scale(1.06)';
+    function renderBundled(){
+      // 묶은 후: 옆 분홍+초록을 한 점선 박스로 감싸 두 개의 큰 묶음 표시
+      area.innerHTML = `
+        <div style="position:relative;background:white;border:3px dashed #f4b53c;border-radius:18px;padding:14px 18px 22px;display:flex;align-items:center;gap:10px;transition:all .25s ease-out">
+          ${pinkSmall}
+          ${greenSmall}
+          <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:#fff3d6;border:2px solid #f4b53c;border-radius:10px;padding:1px 10px;font-size:14px;font-weight:800;color:#9a6d10;white-space:nowrap">1번째 묶음 (5개)</div>
+        </div>
+        <div style="position:relative;background:white;border:3px dashed #f4b53c;border-radius:18px;padding:14px 18px 22px;display:flex;align-items:center;gap:10px;transition:all .25s ease-out">
+          ${pinkSmall}
+          ${greenSmall}
+          <div style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);background:#fff3d6;border:2px solid #f4b53c;border-radius:10px;padding:1px 10px;font-size:14px;font-weight:800;color:#9a6d10;white-space:nowrap">2번째 묶음 (5개)</div>
+        </div>
+      `;
+      bundled = true;
+    }
+
+    renderLoose();
+
+    makeBtn.addEventListener('click', ()=>{
+      if(bundled) return;
+      renderBundled();
+      makeBtn.disabled = true;
+      makeBtn.style.opacity = '.5';
+      summary.style.display = 'block';
+    });
+    r.querySelector('#reset-bundle').addEventListener('click', ()=>{
+      renderLoose();
+      makeBtn.disabled = false;
+      makeBtn.style.opacity = '1';
+      summary.style.display = 'none';
+      // 입력값도 비움
+      ['t','c','a'].forEach(id => {
+        const inp = r.querySelector(`[data-id="${id}"]`);
+        if(inp){ inp.value = ''; inp.classList.remove('ok','bad'); }
       });
     });
 
-    // 드래그 중 이동·종료는 document 전체에서 감지 (포인터가 다른 묶음으로 이동해도 추적)
-    function onMove(e){
-      if(!dragSrc) return;
-      const target = document.elementFromPoint(e.clientX, e.clientY);
-      const bunch = findBunch(target);
-      setHover(bunch);
-    }
-    function onUp(e){
-      if(!dragSrc) return;
-      const target = document.elementFromPoint(e.clientX, e.clientY);
-      const dst = findBunch(target);
-      if(dst && dst !== dragSrc && dst.parentNode === dragSrc.parentNode){
-        // DOM 자리 바꿈
-        const parent = dragSrc.parentNode;
-        const children = Array.from(parent.children);
-        const srcIdx = children.indexOf(dragSrc);
-        const dstIdx = children.indexOf(dst);
-        // 자리 바꾸기 (swap)
-        const srcNext = dragSrc.nextElementSibling;
-        const dstNext = dst.nextElementSibling;
-        if(srcNext === dst){
-          // 바로 옆 — 단순 위치 교환
-          parent.insertBefore(dst, dragSrc);
-        } else if(dstNext === dragSrc){
-          parent.insertBefore(dragSrc, dst);
-        } else {
-          // 떨어진 자리 교환
-          parent.insertBefore(dragSrc, dstNext);
-          parent.insertBefore(dst, srcNext);
-        }
-      }
-      dragSrc.style.opacity = '';
-      dragSrc.style.cursor = 'grab';
-      dragSrc.style.transform = '';
-      clearHover();
-      dragSrc = null;
-    }
-    document.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerup', onUp);
-    document.addEventListener('pointercancel', onUp);
-
-    // 답 입력 시 옆에 곱셈식 자동 표시 (정답일 때만)
-    const hInp = r.querySelector('[data-id="h"]');
-    const nInp = r.querySelector('[data-id="n"]');
-    const fH = r.querySelector('#formula-h');
-    const fN = r.querySelector('#formula-n');
-    hInp.addEventListener('input', ()=>{
-      hInp.classList.remove('ok','bad');
-      fH.style.display = (hInp.value.trim() === '4') ? '' : 'none';
-    });
-    nInp.addEventListener('input', ()=>{
-      nInp.classList.remove('ok','bad');
-      fN.style.display = (nInp.value.trim() === '6') ? '' : 'none';
-    });
-
+    const expected = { t:'5', c:'2', a:'3' };
     r.querySelector('#check').addEventListener('click',()=>{
-      const okH = hInp.value.trim() === '4';
-      const okN = nInp.value.trim() === '6';
-      hInp.classList.remove('ok','bad'); nInp.classList.remove('ok','bad');
-      hInp.classList.add(okH?'ok':'bad'); nInp.classList.add(okN?'ok':'bad');
-      if(okH && okN){
-        r.querySelector('#check').disabled = true;
-        nextStep();
+      if(!bundled){
+        showModal('잠깐만요', `<div style="text-align:center;font-size:22px">먼저 <b>큰 묶음으로 묶기</b> 버튼을 눌러 두 묶음을 만들어 주세요!</div>`, [{ label:'알겠어요', cls:'btn-primary' }]);
         return;
       }
-      // 틀린 경우 팝업으로 힌트 — 2개씩 2묶음 → 2 × 2 = 빈칸 형태
-      showModal(
-        '힌트',
-        `<div style="text-align:center;line-height:1.8;font-size:22px">
-           <div><b style="color:#a3215f">어린이 손님</b> - 2개씩 2묶음 → 2 × 2 = <span style="display:inline-block;min-width:50px;border-bottom:3px solid #a3215f;margin:0 4px"></span></div>
-           <div style="margin-top:8px"><b style="color:#3f7820">어른 손님</b> - 3개씩 2묶음 → 3 × 2 = <span style="display:inline-block;min-width:50px;border-bottom:3px solid #3f7820;margin:0 4px"></span></div>
-         </div>`,
-        [{ label:'다시 풀어볼게요', cls:'btn-primary' }]
-      );
-    });
-    return r;
-  },
-  // ③ 개념 학습 — 묶음 합치기 (분홍·초록 각각 하나로) + 5칸 확인
-  ()=>{
-    const r = el(`<div>
-      ${speech('이번엔 <b style="color:#a3215f">어린이 손님</b>의 분홍 묶음끼리, <b style="color:#3f7820">어른 손님</b>의 초록 묶음끼리 한 묶음으로 모아 봐요. 그러면 모두 몇 칸이 되는지 확인할 수 있어요.')}
-      <div class="bg-blue-50 rounded-2xl text-center" style="padding:14px 18px;margin:8px 0">
-        <!-- 묶음 4개 → 합치기 -->
-        <div id="merge-row" style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:10px 0;font-size:34px;min-height:80px;transition:all .35s">
-          <div class="m-bunch" data-color="pink"  style="background:#fbd6e4;padding:10px 16px;border-radius:16px;border:4px solid #ec6da4;transition:all .35s">🍪🍪</div>
-          <div class="m-bunch" data-color="pink"  style="background:#fbd6e4;padding:10px 16px;border-radius:16px;border:4px solid #ec6da4;transition:all .35s">🍪🍪</div>
-          <div class="m-bunch" data-color="green" style="background:#d8f1c6;padding:10px 16px;border-radius:16px;border:4px solid #84d05c;transition:all .35s">🍪🍪🍪</div>
-          <div class="m-bunch" data-color="green" style="background:#d8f1c6;padding:10px 16px;border-radius:16px;border:4px solid #84d05c;transition:all .35s">🍪🍪🍪</div>
-        </div>
-        <!-- 합치기 버튼 두 개 -->
-        <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:8px">
-          <button id="merge-pink" style="font-family:'Jua',sans-serif;font-size:20px;font-weight:800;padding:10px 20px;border:3px solid #ec6da4;border-radius:14px;background:#fbd6e4;color:#a3215f;cursor:pointer;box-shadow:0 4px 0 rgba(236,109,164,.35)">
-            👶 어린이 손님 묶음 합치기
-          </button>
-          <button id="merge-green" style="font-family:'Jua',sans-serif;font-size:20px;font-weight:800;padding:10px 20px;border:3px solid #84d05c;border-radius:14px;background:#d8f1c6;color:#3f7820;cursor:pointer;box-shadow:0 4px 0 rgba(132,208,92,.35)">
-            🧑 어른 손님 묶음 합치기
-          </button>
-        </div>
-        <!-- 확인 식 -->
-        <div style="font-size:21px;margin-top:18px;line-height:1.7;color:var(--ink)">
-          전체 <input class="ans" data-id="t" /> 칸 중
-          <b style="color:#a3215f">어린이 손님</b> <input class="ans" data-id="hc" /> 칸,
-          <b style="color:#3f7820">어른 손님</b> <input class="ans" data-id="ac" /> 칸씩
-          <input class="ans" data-id="times" /> 번 드렸어요.
-        </div>
-      </div>
-      <div class="step-actions">
-        <button id="check" class="btn btn-pink">다음 →</button>
-      </div>
-    </div>`);
-
-    // 합치기 동작 — 같은 색 묶음 두 개를 하나의 큰 묶음으로 교체
-    function merge(color, cookieCount){
-      const row = r.querySelector('#merge-row');
-      const bunches = Array.from(row.querySelectorAll(`.m-bunch[data-color="${color}"]`));
-      if(bunches.length < 2) return;  // 이미 합쳐짐
-      const cfg = color === 'pink'
-        ? { bg:'#fbd6e4', border:'#ec6da4', boxShadow:'rgba(236,109,164,.4)' }
-        : { bg:'#d8f1c6', border:'#84d05c', boxShadow:'rgba(132,208,92,.4)' };
-      const merged = document.createElement('div');
-      merged.className = 'm-bunch';
-      merged.dataset.color = color;
-      merged.style.cssText = `background:${cfg.bg};padding:14px 22px;border-radius:18px;border:5px solid ${cfg.border};box-shadow:0 5px 0 ${cfg.boxShadow};transition:all .35s`;
-      merged.innerHTML = '🍪'.repeat(cookieCount);
-      // 첫 번째 분홍/초록 자리에 합친 묶음 삽입, 나머지 제거
-      row.insertBefore(merged, bunches[0]);
-      bunches.forEach(b => b.remove());
-    }
-    r.querySelector('#merge-pink').addEventListener('click', ()=>{
-      merge('pink', 4);
-      r.querySelector('#merge-pink').disabled = true;
-      r.querySelector('#merge-pink').style.opacity = '.45';
-    });
-    r.querySelector('#merge-green').addEventListener('click', ()=>{
-      merge('green', 6);
-      r.querySelector('#merge-green').disabled = true;
-      r.querySelector('#merge-green').style.opacity = '.45';
-    });
-
-    // 다음 — 식 검증 (틀리면 팝업)
-    const expected = { t:'5', hc:'2', ac:'3', times:'2' };
-    r.querySelector('#check').addEventListener('click', ()=>{
       let allOk = true;
       Object.entries(expected).forEach(([id, val])=>{
         const inp = r.querySelector(`[data-id="${id}"]`);
@@ -5042,8 +5384,121 @@ stageDefs[6] = [
       showModal(
         '힌트',
         `<div style="text-align:center;line-height:1.8;font-size:22px">
-           전체 칸 수는 <b>2 + 3 = 5</b> 칸이에요.<br>
-           한 칸씩 <b>두 번</b> 나눠 드렸어요.
+           한 묶음의 개수: <b style="color:#a3215f">어린이 2</b> + <b style="color:#3f7820">어른 3</b> = <b>5</b> 개예요.<br>
+           그래서 비율은 <b>2 : 3</b> 이에요.
+         </div>`,
+        [{ label:'다시 풀어볼게요', cls:'btn-primary' }]
+      );
+    });
+    return r;
+  },
+  // ③ 개념 학습 — 분홍-초록-분홍-초록 → 드래그로 같은 색끼리 모아봐요
+  ()=>{
+    const r = el(`<div>
+      ${speech('마우스를 드래그해서 <b>같은 색</b>끼리 모아봐요.')}
+      <div class="bg-blue-50 rounded-2xl text-center" style="padding:14px 22px;margin:8px 0">
+        <!-- 묶음 4개 — 초기 순서: 분홍-초록-분홍-초록, 드래그로 재정렬 -->
+        <div id="groups-row" style="display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin:10px 0;font-size:42px;min-height:90px">
+          <div class="cookie-bunch" data-color="pink"  style="background:#fbd6e4;padding:12px 20px;border-radius:16px;border:4px solid #ec6da4;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪</div>
+          <div class="cookie-bunch" data-color="green" style="background:#d8f1c6;padding:12px 20px;border-radius:16px;border:4px solid #84d05c;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪🍪</div>
+          <div class="cookie-bunch" data-color="pink"  style="background:#fbd6e4;padding:12px 20px;border-radius:16px;border:4px solid #ec6da4;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪</div>
+          <div class="cookie-bunch" data-color="green" style="background:#d8f1c6;padding:12px 20px;border-radius:16px;border:4px solid #84d05c;cursor:grab;touch-action:none;user-select:none;transition:transform .2s, box-shadow .2s">🍪🍪🍪</div>
+        </div>
+        <!-- 답 입력 — 정답일 때 옆에 곱셈식 자동 표시 -->
+        <div style="font-size:26px;margin-top:14px;line-height:1.5;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
+          <span><b style="color:#a3215f">어린이 손님</b> · 분홍 2개씩 2묶음 → 모두 <input class="ans" data-id="h" style="font-size:24px;width:70px;height:44px" /> 개</span>
+          <span id="formula-h" style="color:#a3215f;font-weight:800;display:none;font-size:24px">(2 × 2 = 4)</span>
+        </div>
+        <div style="font-size:26px;margin-top:8px;line-height:1.5;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
+          <span><b style="color:#3f7820">어른 손님</b> · 초록 3개씩 2묶음 → 모두 <input class="ans" data-id="n" style="font-size:24px;width:70px;height:44px" /> 개</span>
+          <span id="formula-n" style="color:#3f7820;font-weight:800;display:none;font-size:24px">(3 × 2 = 6)</span>
+        </div>
+      </div>
+      <div class="step-actions">
+        <button id="check" class="btn btn-pink">다음 →</button>
+      </div>
+    </div>`);
+
+    // 드래그 앤 드롭 (Pointer Events — 마우스·터치·펜 모두 지원)
+    let dragSrc = null;
+    let dragHover = null;
+    const bunches = r.querySelectorAll('.cookie-bunch');
+
+    function clearHover(){
+      if(dragHover){ dragHover.style.boxShadow = ''; dragHover = null; }
+    }
+    function setHover(el){
+      if(dragHover !== el){
+        clearHover();
+        if(el && el !== dragSrc && el.classList && el.classList.contains('cookie-bunch')){
+          el.style.boxShadow = '0 0 0 4px #888, 0 0 0 8px rgba(0,0,0,.1)';
+          dragHover = el;
+        }
+      }
+    }
+    function findBunch(node){
+      while(node && (!node.classList || !node.classList.contains('cookie-bunch'))) node = node.parentElement;
+      return node;
+    }
+    bunches.forEach(b => {
+      b.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        dragSrc = b;
+        b.style.opacity = '0.55';
+        b.style.cursor = 'grabbing';
+        b.style.transform = 'scale(1.06)';
+      });
+    });
+    function onMove(e){
+      if(!dragSrc) return;
+      const target = document.elementFromPoint(e.clientX, e.clientY);
+      setHover(findBunch(target));
+    }
+    function onUp(e){
+      if(!dragSrc) return;
+      const target = document.elementFromPoint(e.clientX, e.clientY);
+      const dst = findBunch(target);
+      if(dst && dst !== dragSrc && dst.parentNode === dragSrc.parentNode){
+        const parent = dragSrc.parentNode;
+        const srcNext = dragSrc.nextElementSibling;
+        const dstNext = dst.nextElementSibling;
+        if(srcNext === dst){ parent.insertBefore(dst, dragSrc); }
+        else if(dstNext === dragSrc){ parent.insertBefore(dragSrc, dst); }
+        else { parent.insertBefore(dragSrc, dstNext); parent.insertBefore(dst, srcNext); }
+      }
+      dragSrc.style.opacity = '';
+      dragSrc.style.cursor = 'grab';
+      dragSrc.style.transform = '';
+      clearHover();
+      dragSrc = null;
+    }
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    document.addEventListener('pointercancel', onUp);
+
+    // 답 입력 시 옆에 곱셈식 자동 표시 (정답일 때만)
+    const hInp = r.querySelector('[data-id="h"]');
+    const nInp = r.querySelector('[data-id="n"]');
+    const fH = r.querySelector('#formula-h');
+    const fN = r.querySelector('#formula-n');
+    hInp.addEventListener('input', ()=>{ hInp.classList.remove('ok','bad'); fH.style.display = (hInp.value.trim()==='4') ? '' : 'none'; });
+    nInp.addEventListener('input', ()=>{ nInp.classList.remove('ok','bad'); fN.style.display = (nInp.value.trim()==='6') ? '' : 'none'; });
+
+    r.querySelector('#check').addEventListener('click',()=>{
+      const okH = hInp.value.trim() === '4';
+      const okN = nInp.value.trim() === '6';
+      hInp.classList.remove('ok','bad'); nInp.classList.remove('ok','bad');
+      hInp.classList.add(okH?'ok':'bad'); nInp.classList.add(okN?'ok':'bad');
+      if(okH && okN){
+        r.querySelector('#check').disabled = true;
+        nextStep();
+        return;
+      }
+      showModal(
+        '힌트',
+        `<div style="text-align:center;line-height:1.8;font-size:22px">
+           <div><b style="color:#a3215f">어린이 손님</b> · 2개씩 2묶음 → 2 × 2 = <span style="display:inline-block;min-width:50px;border-bottom:3px solid #a3215f;margin:0 4px"></span></div>
+           <div style="margin-top:8px"><b style="color:#3f7820">어른 손님</b> · 3개씩 2묶음 → 3 × 2 = <span style="display:inline-block;min-width:50px;border-bottom:3px solid #3f7820;margin:0 4px"></span></div>
          </div>`,
         [{ label:'다시 풀어볼게요', cls:'btn-primary' }]
       );
@@ -5169,13 +5624,13 @@ stageDefs[6] = [
   // ④ 실생활 퀴즈 — 식을 주고 빈칸 채워 비례식 만들기
   ()=>{
     const probs = [
-      { label:'갓 구운 쿠키 12개를 두 손님 그룹에 1 : 3 으로 나누어요. 두 그룹의 쿠키 개수로 비례식을 완성해 보세요.',
+      { label:'갓 구운 쿠키 12개를 두 손님 그룹에 1 : 3 으로 나누어요. 두 그룹의 쿠키 개수로 비례식을 완성해 보세요.', labelFontSize:33,
         q:'__ANS__ : __ANS__ = 1 : 3', answers:['3','9'] },
-      { label:'밀가루 20컵을 두 반죽통에 2 : 3 으로 나누어요. 두 반죽통의 밀가루 양으로 비례식을 완성해 보세요.',
+      { label:'밀가루 20컵을 두 반죽통에 2 : 3 으로 나누어요. 두 반죽통의 밀가루 양으로 비례식을 완성해 보세요.', labelFontSize:33,
         q:'__ANS__ : __ANS__ = 2 : 3', answers:['8','12'] },
-      { label:'딸기 15개를 케이크 두 개에 2 : 1 로 나누어요. 두 케이크에 들어가는 딸기 개수로 비례식을 완성해 보세요.',
+      { label:'딸기 15개를 케이크 두 개에 2 : 1 로 나누어요. 두 케이크에 들어가는 딸기 개수로 비례식을 완성해 보세요.', labelFontSize:33,
         q:'__ANS__ : __ANS__ = 2 : 1', answers:['10','5'] },
-      { label:'도넛 24개를 두 손님 가족에 3 : 5 로 나누어요. 두 가족이 받는 도넛 개수로 비례식을 완성해 보세요.',
+      { label:'도넛 24개를 두 손님 가족에 3 : 5 로 나누어요. 두 가족이 받는 도넛 개수로 비례식을 완성해 보세요.', labelFontSize:33,
         q:'__ANS__ : __ANS__ = 3 : 5', answers:['9','15'] },
     ];
     return makeProblems(probs, nextStep);
@@ -5277,6 +5732,7 @@ stageDefs[6] = [
     function renderPlay(){
       r.innerHTML = `
         <div style="display:flex;flex-direction:column;gap:12px;height:100%">
+          <!-- 헤더 -->
           <div style="display:flex;justify-content:space-between;align-items:center;background:#fff7e0;border:2px solid var(--accent);border-radius:14px;padding:10px 22px;flex-shrink:0">
             <div style="font-size:24px;font-weight:800">${G.mode.label}</div>
             <div style="display:flex;align-items:center;gap:12px">
@@ -5285,24 +5741,120 @@ stageDefs[6] = [
             </div>
             <div style="font-size:24px;font-weight:800">맞춤: <span class="score-text" style="color:var(--good)">0</span> / ${G.mode.target}</div>
           </div>
-          <div style="flex:1;display:flex;align-items:center;justify-content:center;min-height:0">
-            <div style="background:#f5edff;border:3px solid var(--tab-3);border-radius:18px;padding:26px 36px;display:flex;flex-direction:column;gap:16px;align-items:center;min-width:560px;max-width:760px">
-              <div style="font-size:20px;color:var(--ink-soft);text-align:center">아래 비례배분 식의 빈칸을 채우세요</div>
-              <div class="problem-area" style="font-size:32px;font-weight:800;text-align:center;line-height:1.5"></div>
+          <!-- 본문: 좌(문제) + 우(계산 노트 + OCR 답 패드) -->
+          <div style="display:flex;gap:14px;flex:1;min-height:0">
+            <!-- 왼쪽: 문제 박스 -->
+            <div style="flex:0 0 520px;display:flex;flex-direction:column;background:#f5edff;border:3px solid var(--tab-3);border-radius:18px;padding:24px;justify-content:space-between;gap:14px">
+              <div style="text-align:center;font-size:20px;color:var(--ink-soft)">아래 비례배분 식의 빈칸을 채우세요</div>
+              <div class="problem-area" style="text-align:center;font-size:32px;font-weight:800;line-height:1.5"></div>
               <div class="game-feedback" style="text-align:center;font-size:22px;font-weight:800;min-height:30px;line-height:1.2"></div>
-              <div style="display:flex;gap:10px">
+              <div style="display:flex;justify-content:center;gap:10px">
                 <button class="btn btn-secondary" id="quit-game" style="font-size:20px">중단</button>
                 <button class="btn btn-blue" id="check-game" style="font-size:24px;padding:12px 28px">정답 확인</button>
+              </div>
+            </div>
+            <!-- 오른쪽: 계산 노트 + 손글씨 답 패드 -->
+            <div class="scratch-pad-wrap" style="flex:1;position:relative;background:white;border:2px dashed #d4b487;border-radius:14px;overflow:hidden;display:flex;flex-direction:column">
+              <canvas class="scratch-pad" style="display:block;flex:1;cursor:crosshair;touch-action:none;background:white"></canvas>
+              <div style="position:absolute;top:8px;left:12px;font-size:18px;color:var(--ink-soft);font-weight:700;pointer-events:none;background:rgba(255,250,238,0.85);padding:3px 12px;border-radius:8px">📝 계산 노트</div>
+              <button class="clear-scratch" style="position:absolute;top:8px;right:10px;font-size:14px;padding:6px 12px;background:white;border:2px solid #d4b487;border-radius:10px;cursor:pointer;font-family:'Jua',sans-serif;color:var(--ink);font-weight:700">🧹 지우기</button>
+              <!-- 손글씨 답 패드 (정답 자동 인식) -->
+              <div class="answer-pads-row">
+                <span class="ocr-label" style="font-size:20px;font-weight:800;font-family:'Jua',sans-serif">답:</span>
+                <canvas class="answer-pad" data-target="ga"></canvas>
+                <span class="ocr-label" style="font-size:20px;font-weight:800;font-family:'Jua',sans-serif">:</span>
+                <canvas class="answer-pad" data-target="gb"></canvas>
+                <button class="clear-answer-pads" title="답 지우기">🧹</button>
               </div>
             </div>
           </div>
         </div>
       `;
+
+      // 계산 노트 캔버스 — 자유 필기
+      setupScratch();
+
+      // 손글씨 답 패드 — 그리기 종료 시 OCR로 메인 입력칸 자동 채움
+      const padA = r.querySelector('.answer-pad[data-target="ga"]');
+      const padB = r.querySelector('.answer-pad[data-target="gb"]');
+      G.ocrTokenA = { n: 0 };
+      G.ocrTokenB = { n: 0 };
+      G.padA_h = setupAnswerPad(padA, {
+        onChange: async () => {
+          const tk = G.ocrTokenA; const myN = ++tk.n;
+          const rec = await recognizeDigitsFromCanvas(padA);
+          if(myN !== tk.n) return;
+          const a = r.querySelector('[data-id="ga"]');
+          if(a && rec){
+            a.value = rec;
+            a.style.color = ''; a.style.borderColor = ''; a.style.background = '';
+          }
+        }
+      });
+      G.padB_h = setupAnswerPad(padB, {
+        onChange: async () => {
+          const tk = G.ocrTokenB; const myN = ++tk.n;
+          const rec = await recognizeDigitsFromCanvas(padB);
+          if(myN !== tk.n) return;
+          const b = r.querySelector('[data-id="gb"]');
+          if(b && rec){
+            b.value = rec;
+            b.style.color = ''; b.style.borderColor = ''; b.style.background = '';
+          }
+        }
+      });
+
+      const clearAns = r.querySelector('.clear-answer-pads');
+      if(clearAns) clearAns.addEventListener('click', ()=>{
+        if(G.padA_h) G.padA_h.clear();
+        if(G.padB_h) G.padB_h.clear();
+        if(G.ocrTokenA) G.ocrTokenA.n++;
+        if(G.ocrTokenB) G.ocrTokenB.n++;
+        if(padA) padA.classList.remove('correct','wrong');
+        if(padB) padB.classList.remove('correct','wrong');
+      });
+
       r.querySelector('#check-game').addEventListener('click', checkAnswer);
       r.querySelector('#quit-game').addEventListener('click', ()=>{
         clearTimer();
         showResults();
       });
+    }
+
+    // 계산 노트(스크래치 패드) 초기화 — 비 줄이기 게임과 동일 패턴
+    function setupScratch(){
+      const canvas = r.querySelector('.scratch-pad');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function fit(){
+        const rect = canvas.getBoundingClientRect();
+        if(rect.width > 10 && rect.height > 10 && (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height))){
+          canvas.width  = Math.round(rect.width);
+          canvas.height = Math.round(rect.height);
+        }
+        ctx.strokeStyle = '#4a3826';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+      }
+      setTimeout(fit, 60);
+      setTimeout(fit, 300);
+      let drawing = false;
+      function getP(e){
+        const rect = canvas.getBoundingClientRect();
+        const t = e.touches ? e.touches[0] : e;
+        return { x: (t.clientX - rect.left) * (canvas.width / rect.width),
+                 y: (t.clientY - rect.top)  * (canvas.height / rect.height) };
+      }
+      canvas.addEventListener('mousedown', e=>{ drawing=true; const p=getP(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); });
+      canvas.addEventListener('mousemove', e=>{ if(!drawing) return; const p=getP(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); });
+      canvas.addEventListener('mouseup',    ()=>{ drawing=false; });
+      canvas.addEventListener('mouseleave', ()=>{ drawing=false; });
+      canvas.addEventListener('touchstart', e=>{ drawing=true; const p=getP(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); }, {passive:false});
+      canvas.addEventListener('touchmove',  e=>{ if(!drawing) return; const p=getP(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }, {passive:false});
+      canvas.addEventListener('touchend',   ()=>{ drawing=false; });
+      const clearBtn = r.querySelector('.clear-scratch');
+      if(clearBtn) clearBtn.addEventListener('click', ()=>{ ctx.clearRect(0,0,canvas.width,canvas.height); });
     }
 
     function showProblem(){
@@ -5328,14 +5880,38 @@ stageDefs[6] = [
       });
       const fb = r.querySelector('.game-feedback');
       if(fb){ fb.textContent = ''; fb.style.color = ''; }
+
+      // 손글씨 답 패드 초기화 + 대기 중 OCR 무효화 (이전 문제 결과가 새 문제로 흘러오지 않도록)
+      if(G.padA_h) G.padA_h.clear();
+      if(G.padB_h) G.padB_h.clear();
+      if(G.ocrTokenA) G.ocrTokenA.n++;
+      if(G.ocrTokenB) G.ocrTokenB.n++;
+      const padA = r.querySelector('.answer-pad[data-target="ga"]');
+      const padB = r.querySelector('.answer-pad[data-target="gb"]');
+      if(padA) padA.classList.remove('correct','wrong');
+      if(padB) padB.classList.remove('correct','wrong');
     }
 
-    function checkAnswer(){
+    async function checkAnswer(){
       const p = G.problems[G.idx];
       if(!p) return;
       const a = r.querySelector('[data-id="ga"]');
       const b = r.querySelector('[data-id="gb"]');
       if(!a || !b) return;
+      const checkBtn = r.querySelector('#check-game');
+      if(checkBtn && checkBtn.disabled) return;
+      // 손글씨 답 패드를 강제로 한 번 더 OCR 인식 → 메인 입력칸을 최신 값으로
+      const padA = r.querySelector('.answer-pad[data-target="ga"]');
+      const padB = r.querySelector('.answer-pad[data-target="gb"]');
+      if(checkBtn){ checkBtn.disabled = true; }
+      try {
+        const [recA, recB] = await Promise.all([
+          recognizeDigitsFromCanvas(padA),
+          recognizeDigitsFromCanvas(padB),
+        ]);
+        if(recA) a.value = recA;
+        if(recB) b.value = recB;
+      } catch(e){ /* OCR 실패 시 기존 입력값으로 검증 */ }
       const av = parseInt((a.value||'').trim(), 10);
       const bv = parseInt((b.value||'').trim(), 10);
       const ok = (av === p.ans[0]) && (bv === p.ans[1]);
@@ -5344,6 +5920,10 @@ stageDefs[6] = [
         inp.style.color = ok ? '#16a34a' : '#dc2626';
         inp.style.borderColor = ok ? '#16a34a' : '#dc2626';
         if(!ok) inp.style.background = '#ffe3e3';
+      });
+      // 손글씨 답 패드 색도 동기화
+      [padA, padB].forEach(p2 => {
+        if(p2){ p2.classList.remove('correct','wrong'); p2.classList.add(ok ? 'correct' : 'wrong'); }
       });
       const fb = r.querySelector('.game-feedback');
       if(fb){
@@ -5362,6 +5942,7 @@ stageDefs[6] = [
       }
       setTimeout(()=>{
         G.idx++;
+        if(checkBtn) checkBtn.disabled = false;
         showProblem();
       }, ok ? 900 : 1500);
     }
