@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OCR 보드 — 비례배분 실생활 문제 추출본</title>
+
+<!-- 의존성: Tesseract.js (CDN). 인터넷 연결 필요. -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.5/dist/tesseract.min.js"></script>
+
+<style>
+  body {
+    font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+    background: #fffaee;
+    color: #4a3826;
+    padding: 28px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  h1 { color: #e96f3c; }
+  h2 { margin-top: 32px; color: #b05530; }
+  p  { line-height: 1.6; }
+  code { background:#fff3da; padding:1px 6px; border-radius:4px; font-size:.92em; }
+  pre  { background:#fff3da; border:1px solid #f3dfb3; padding:12px 14px; border-radius:8px; overflow-x:auto; font-size:13px; line-height:1.5; }
+
+  /* ===== 비례배분 실생활 문제 OCR 보드 — 정확히 같은 CSS ===== */
+  .answer-pad {
+    width: 84px;
+    height: 60px;
+    border: 2px solid #f39e2c;
+    border-radius: 10px;
+    background: white;
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .answer-pad.correct { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(45,191,148,.18); }
+  .answer-pad.wrong   { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(239,100,100,.18); }
+  .clear-answer-pads {
+    background: white;
+    border: 2px solid #d4b487;
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Jua', sans-serif;
+    color: #4a3826;
+  }
+  .ans {
+    width: 96px;
+    height: 74px;
+    font-size: 44px;
+    text-align: center;
+    border: 2px solid #f39e2c;
+    border-radius: 10px;
+    background: white;
+    color: #4a3826;
+    font-weight: 800;
+  }
+  .ans.ok  { border-color: #16a34a; background: #d0f5e7; color: #1e8e6c; }
+  .ans.bad { border-color: #dc2626; background: #ffe0e0; color: #dc2626; }
+  .scratch-pad-wrap {
+    flex: 0 0 290px;
+    position: relative;
+    background: white;
+    border: 2px dashed #d4b487;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 280px;
+  }
+  .scratch-pad {
+    display: block;
+    flex: 1;
+    cursor: crosshair;
+    touch-action: none;
+    background: white;
+  }
+  .clear-scratch {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 13px;
+    padding: 5px 10px;
+    background: white;
+    border: 2px solid #d4b487;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Jua', sans-serif;
+    color: #4a3826;
+    font-weight: 700;
+  }
+  .pad-label {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 16px;
+    color: #7a5e3e;
+    font-weight: 700;
+    pointer-events: none;
+    background: rgba(255,250,238,0.85);
+    padding: 3px 10px;
+    border-radius: 8px;
+  }
+  .pads-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,250,238,0.95);
+    border-top: 2px dashed #d4b487;
+    flex-wrap: wrap;
+  }
+  .btn-check {
+    margin-top: 14px;
+    font-family: 'Jua', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    background: #5dafe8;
+    color: white;
+    box-shadow: 0 4px 0 rgba(0,0,0,.16);
+  }
+  .btn-check:disabled { opacity: .5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<h1>OCR 보드 — 비례배분 실생활 문제와 동일</h1>
+<p>
+  비례배분 단원의 <b>실생활 문제(makeProblems)</b>에서 사용하는 OCR 보드를 그대로 추출한 코드입니다.
+  손글씨를 보드에 쓰면 자동으로 정답칸이 채워지고, 정답 확인 시 한 번 더 강제로 OCR을 돌려 최신 결과를 반영합니다.
+</p>
+
+<h2>📝 데모</h2>
+<p>아래 OCR 보드에 숫자를 손글씨로 써 보세요. 손을 떼는 순간 자동으로 인식되어 정답칸이 채워집니다.</p>
+
+<div style="display:flex;gap:14px;align-items:stretch">
+  <!-- 왼쪽: 문제 + 정답칸 -->
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;background:#f5edff;border:3px solid #a78bfa;border-radius:20px;padding:20px;text-align:center">
+    <div style="font-size:22px;color:#7c3aed">예제 문제 — 정답 두 개 (3 / 9)</div>
+    <div style="font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+      <input class="ans" data-id="a0" />
+      <span>:</span>
+      <input class="ans" data-id="a1" />
+      <span>= 1 : 3</span>
+    </div>
+  </div>
+
+  <!-- 오른쪽: 계산 노트 + OCR 답 패드 -->
+  <div class="scratch-pad-wrap">
+    <canvas class="scratch-pad"></canvas>
+    <div class="pad-label">📝 계산 노트</div>
+    <button class="clear-scratch">🧹 지우기</button>
+    <div class="pads-row">
+      <span style="font-size:20px;font-weight:800;color:#4a3826;font-family:'Jua',sans-serif">답:</span>
+      <canvas class="answer-pad" data-idx="0"></canvas>
+      <span style="font-size:22px;font-weight:800;color:#4a3826;font-family:'Jua',sans-serif">:</span>
+      <canvas class="answer-pad" data-idx="1"></canvas>
+      <button class="clear-answer-pads" title="답 지우기">🧹</button>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center">
+  <button id="check" class="btn-check">정답 확인</button>
+</div>
+<div id="result" style="text-align:center;font-size:20px;margin-top:8px;color:#7a5e3e;font-weight:700"></div>
+
+<h2>📦 다른 곳에 적용하는 방법</h2>
+<ol>
+  <li><code>&lt;head&gt;</code>에 Tesseract.js CDN 한 줄 넣기</li>
+  <li>위 <code>&lt;style&gt;</code>의 <code>.answer-pad</code> / <code>.scratch-pad-wrap</code> / <code>.scratch-pad</code> / <code>.ans</code> / <code>.pads-row</code> 등 CSS 복사</li>
+  <li>아래 <code>&lt;script id="ocr-board-lib"&gt;</code> 라이브러리 블록 전체 복사</li>
+  <li>아래 <b>적용 패턴(makeProblems 스타일)</b> 코드를 자기 페이지에서 호출</li>
+</ol>
+
+<h2>🎯 핵심 동작 (다른 OCR 보드와의 차이)</h2>
+<ol>
+  <li><b>그리기 종료 즉시 자동 인식</b> — 350ms 디바운스 후 <code>recognizeDigitsFromCanvas</code> 호출, 결과를 정답 입력칸에 채움</li>
+  <li><b>결과가 빈 문자열이면 입력칸 보존</b> — <code>if(rec)</code> 가드로 학생이 직접 친 값이 지워지지 않음</li>
+  <li><b>정답 확인 클릭 시 OCR 강제 재실행</b> — 보드에 남아 있는 마지막 글자까지 반영. 이때 버튼 라벨은 잠깐 "인식 중…" 으로 변함</li>
+  <li><b>race 방지 토큰</b> — 빠르게 다시 그리면 이전 OCR 결과는 무시</li>
+  <li><b>지우기 시 토큰 무효화 + 입력칸 비우기</b> — 비대기 중 OCR이 빈 값으로 덮어쓰지 않도록</li>
+</ol>
+
+<pre>// 적용 패턴 (각 입력칸 ↔ OCR 패드 페어 N개)
+const ansInputs = [...document.querySelectorAll('input.ans')];   // 정답 입력칸 N개
+const answerPads = [...document.querySelectorAll('canvas.answer-pad')];  // OCR 패드 N개
+const ocrTokens = answerPads.map(() =&gt; ({ n: 0 }));   // race 방지 토큰
+
+const padHandlers = answerPads.map((c, idx) =&gt; setupAnswerPad(c, {
+  onChange: async () =&gt; {
+    const tk = ocrTokens[idx];
+    const myN = ++tk.n;
+    const rec = await recognizeDigitsFromCanvas(c);
+    if(myN !== tk.n) return;             // 더 새로운 그리기가 시작됨 — 무시
+    if(ansInputs[idx] &amp;&amp; rec){           // 빈 결과로 학생 입력 덮어쓰지 않음
+      ansInputs[idx].value = rec;
+      ansInputs[idx].classList.remove('ok','bad');
+    }
+  }
+}));
+
+// 지우기 버튼
+document.querySelector('.clear-answer-pads').addEventListener('click', () =&gt; {
+  padHandlers.forEach(h =&gt; h &amp;&amp; h.clear());
+  ocrTokens.forEach(tk =&gt; tk.n++);       // 대기 중 OCR 무효화
+  answerPads.forEach(p =&gt; p.classList.remove('correct','wrong'));
+  ansInputs.forEach(inp =&gt; { if(inp){ inp.value = ''; inp.classList.remove('ok','bad'); } });
+});
+
+// 정답 확인 — OCR을 한 번 더 강제 실행해서 최신 글자까지 반영한 뒤 검증
+document.querySelector('#check').addEventListener('click', async () =&gt; {
+  const btn = document.querySelector('#check');
+  if(btn.disabled) return;
+  btn.disabled = true;
+  const orig = btn.textContent;
+  btn.textContent = '인식 중...';
+  await Promise.all(answerPads.map(async (pad, j) =&gt; {
+    try {
+      const rec = await recognizeDigitsFromCanvas(pad);
+      if(rec &amp;&amp; ansInputs[j]) ansInputs[j].value = rec;
+    } catch(e){ /* 실패해도 입력값으로 검증 */ }
+  }));
+  btn.textContent = orig;
+  btn.disabled = false;
+
+  // 여기서 ansInputs[j].value 를 정답과 비교해 채점
+});</pre>
+
+<!-- =====================================================
+     OCR 보드 라이브러리 — 이 스크립트 블록 전체를 복사
+     - 노출 함수: getOCRWorker, preprocessForOCR, recognizeDigitsFromCanvas, setupAnswerPad
+     - 이 파일에 그대로 들어 있는 것과 동일한 코드를 비례배분 실생활 문제에서 사용
+     ===================================================== -->
+<script id="ocr-board-lib">
+/* ================================================================
+   index.html (비례배분 실생활 문제) 와 완전히 동일한 OCR 파이프라인
+   ----------------------------------------------------------------
+   - getOCRWorker        : Tesseract worker 한 번만 만들고 재사용
+   - preprocessForOCR    : 잉크 자르기 → 1px dilate → 320×320 정규화 → 이진화
+   - computeInkFeatures  : 종횡비·잉크 비율 (한국식 1 판정용)
+   - countInkLoops       : flood-fill로 닫힌 영역 수 세기 (0/6/8/9 구분)
+   - recognizeDigitsFromCanvas: 위 두 휴리스틱 + Tesseract 결합 판별
+       1) 세로 막대 → '1'
+       2) loop 2개 → '8'
+       3) loop 1개 → 위치/크기로 4/6/9/0 판별 (OCR 결과 참고)
+       4) loop 0개 → OCR 결과 + 종횡비 폴백
+   ================================================================ */
+
+/* Tesseract.js OCR worker — 한 번만 만들어서 재사용 */
+let _tessWorker = null;
+let _tessLoading = null;
+async function getOCRWorker(){
+  if(_tessWorker) return _tessWorker;
+  if(typeof Tesseract === 'undefined') return null;
+  if(_tessLoading) return _tessLoading;
+  _tessLoading = (async ()=>{
+    const w = await Tesseract.createWorker('eng');
+    try {
+      await w.setParameters({
+        tessedit_char_whitelist: '0123456789',
+        // 7 = Treat the image as a single text line (한 자리·여러 자리수 모두 안정적)
+        tessedit_pageseg_mode: '7',
+        classify_bln_numeric_mode: '1'
+      });
+    } catch(e){ /* 일부 버전에서 누락된 파라미터 무시 */ }
+    _tessWorker = w;
+    return w;
+  })();
+  return _tessLoading;
+}
+
+/* 손글씨 캔버스를 OCR이 잘 읽도록 전처리 — Tesseract 호출용
+   1) 잉크 픽셀 바운딩 박스 검출 → 빈 여백 제거
+   2) 1픽셀 dilate — 가는 손글씨 보강
+   3) 320×320 정사각형으로 업스케일 + 25% 여백
+   4) 이진화 (흰 배경 + 검정 잉크) */
+function preprocessForOCR(canvas){
+  if(!canvas || !canvas.width || !canvas.height) return null;
+  const ctx = canvas.getContext('2d');
+  let img;
+  try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+  catch(e){ return null; }
+  const W = canvas.width, H = canvas.height;
+  const data = img.data;
+  const ink = new Uint8Array(W * H);
+  let minX=W, minY=H, maxX=-1, maxY=-1, count=0;
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const i = (y * W + x) * 4;
+      const v = (data[i] + data[i+1] + data[i+2]) / 3;
+      if(v < 160){
+        ink[y * W + x] = 1; count++;
+        if(x < minX) minX = x; if(x > maxX) maxX = x;
+        if(y < minY) minY = y; if(y > maxY) maxY = y;
+      }
+    }
+  }
+  if(count < 12 || maxX < 0) return null;
+  const dilated = new Uint8Array(W * H);
+  for(let y = minY; y <= maxY; y++){
+    for(let x = minX; x <= maxX; x++){
+      if(ink[y * W + x]){
+        for(let dy = -1; dy <= 1; dy++){
+          for(let dx = -1; dx <= 1; dx++){
+            const nx = x + dx, ny = y + dy;
+            if(nx >= 0 && nx < W && ny >= 0 && ny < H) dilated[ny * W + nx] = 1;
+          }
+        }
+      }
+    }
+  }
+  let dMinX=W, dMinY=H, dMaxX=-1, dMaxY=-1;
+  for(let y = Math.max(0, minY-1); y <= Math.min(H-1, maxY+1); y++){
+    for(let x = Math.max(0, minX-1); x <= Math.min(W-1, maxX+1); x++){
+      if(dilated[y * W + x]){
+        if(x < dMinX) dMinX = x; if(x > dMaxX) dMaxX = x;
+        if(y < dMinY) dMinY = y; if(y > dMaxY) dMaxY = y;
+      }
+    }
+  }
+  const inkW = dMaxX - dMinX + 1;
+  const inkH = dMaxY - dMinY + 1;
+  const OUT = 320;
+  const PAD_RATIO = 0.25;
+  const side = Math.max(inkW, inkH);
+  const sideWithPad = side * (1 + 2 * PAD_RATIO);
+  const scale = OUT / sideWithPad;
+  const outW = Math.round(inkW * scale);
+  const outH = Math.round(inkH * scale);
+  const offsetX = Math.round((OUT - outW) / 2);
+  const offsetY = Math.round((OUT - outH) / 2);
+  const out = document.createElement('canvas');
+  out.width = OUT;
+  out.height = OUT;
+  const octx = out.getContext('2d');
+  octx.fillStyle = 'white';
+  octx.fillRect(0, 0, OUT, OUT);
+  const tmp = document.createElement('canvas');
+  tmp.width = inkW; tmp.height = inkH;
+  const tctx = tmp.getContext('2d');
+  const tImg = tctx.createImageData(inkW, inkH);
+  for(let y = 0; y < inkH; y++){
+    for(let x = 0; x < inkW; x++){
+      const srcIdx = (dMinY + y) * W + (dMinX + x);
+      const dstIdx = (y * inkW + x) * 4;
+      if(dilated[srcIdx]){
+        tImg.data[dstIdx] = 0; tImg.data[dstIdx+1] = 0; tImg.data[dstIdx+2] = 0; tImg.data[dstIdx+3] = 255;
+      } else {
+        tImg.data[dstIdx] = 255; tImg.data[dstIdx+1] = 255; tImg.data[dstIdx+2] = 255; tImg.data[dstIdx+3] = 255;
+      }
+    }
+  }
+  tctx.putImageData(tImg, 0, 0);
+  octx.imageSmoothingEnabled = true;
+  octx.imageSmoothingQuality = 'high';
+  octx.drawImage(tmp, 0, 0, inkW, inkH, offsetX, offsetY, outW, outH);
+  return out;
+}
+
+/* 잉크 픽셀의 바운딩 박스·종횡비 등 기본 특성 계산 — 한국식 손글씨 휴리스틱용 */
+function computeInkFeatures(canvas){
+  if(!canvas || !canvas.width || !canvas.height) return null;
+  const ctx = canvas.getContext('2d');
+  let img;
+  try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+  catch(e){ return null; }
+  const W = canvas.width, H = canvas.height;
+  const data = img.data;
+  let minX = W, minY = H, maxX = -1, maxY = -1, count = 0;
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const i = (y * W + x) * 4;
+      const v = (data[i] + data[i+1] + data[i+2]) / 3;
+      if(v < 160){
+        count++;
+        if(x < minX) minX = x;
+        if(x > maxX) maxX = x;
+        if(y < minY) minY = y;
+        if(y > maxY) maxY = y;
+      }
+    }
+  }
+  if(count < 8 || maxX < 0) return null;
+  const inkW = maxX - minX + 1;
+  const inkH = maxY - minY + 1;
+  return {
+    W, H, minX, minY, maxX, maxY, inkW, inkH, count,
+    aspectRatio: inkH / Math.max(1, inkW),
+    widthRatio: inkW / W,
+    inkRatio: count / Math.max(1, inkW * inkH)
+  };
+}
+
+/* 닫힌 흰색 영역(loop) 개수와 각 영역의 중심을 반환 — 6/8/9/0 구분용
+   잉크를 살짝 두껍게 dilate해서 작은 틈을 메운 뒤, 가장자리부터 flood fill로 외부 영역을 표시한다.
+   외부로 표시되지 않은 흰색 픽셀들의 연결 영역이 곧 loop이다. */
+function countInkLoops(canvas){
+  if(!canvas || !canvas.width || !canvas.height) return { count: 0, centroids: [] };
+  const ctx = canvas.getContext('2d');
+  let img;
+  try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+  catch(e){ return { count: 0, centroids: [] }; }
+  const W = canvas.width, H = canvas.height;
+  const data = img.data;
+  const isInk = new Uint8Array(W * H);
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const i = (y * W + x) * 4;
+      const v = (data[i] + data[i+1] + data[i+2]) / 3;
+      if(v < 160) isInk[y * W + x] = 1;
+    }
+  }
+  const DR = 2;
+  const inkMask = new Uint8Array(W * H);
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      if(isInk[y * W + x]){
+        for(let dy = -DR; dy <= DR; dy++){
+          for(let dx = -DR; dx <= DR; dx++){
+            const nx = x + dx, ny = y + dy;
+            if(nx >= 0 && nx < W && ny >= 0 && ny < H){
+              inkMask[ny * W + nx] = 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  const visited = new Uint8Array(W * H);
+  const queue = [];
+  function pushIfWhite(p){
+    if(!inkMask[p] && !visited[p]){ visited[p] = 1; queue.push(p); }
+  }
+  for(let x = 0; x < W; x++){ pushIfWhite(x); pushIfWhite((H-1)*W + x); }
+  for(let y = 0; y < H; y++){ pushIfWhite(y * W); pushIfWhite(y * W + (W-1)); }
+  while(queue.length){
+    const p = queue.pop();
+    const y = Math.floor(p / W), x = p - y * W;
+    if(x > 0)   pushIfWhite(p - 1);
+    if(x < W-1) pushIfWhite(p + 1);
+    if(y > 0)   pushIfWhite(p - W);
+    if(y < H-1) pushIfWhite(p + W);
+  }
+  const centroids = [];
+  for(let y = 0; y < H; y++){
+    for(let x = 0; x < W; x++){
+      const p = y * W + x;
+      if(!inkMask[p] && !visited[p]){
+        let sumX = 0, sumY = 0, n = 0;
+        const q = [p];
+        visited[p] = 1;
+        while(q.length){
+          const pp = q.pop();
+          const py = Math.floor(pp / W), px = pp - py * W;
+          sumX += px; sumY += py; n++;
+          if(px > 0){   const np = pp - 1; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(px < W-1){ const np = pp + 1; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(py > 0){   const np = pp - W; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+          if(py < H-1){ const np = pp + W; if(!inkMask[np] && !visited[np]){ visited[np] = 1; q.push(np); } }
+        }
+        if(n >= Math.max(20, W * H * 0.003)){
+          centroids.push({ x: sumX / n, y: sumY / n, size: n });
+        }
+      }
+    }
+  }
+  return { count: centroids.length, centroids };
+}
+
+/* 캔버스에서 손글씨 숫자만 인식해서 문자열로 반환 (빈 칸이면 빈 문자열)
+   index.html (비례배분 실생활 문제) 와 완전 동일한 정교한 판별:
+   1) 종횡비 ≥ 1.7 + 폭 < 38% → 한국식 '1'
+   2) 닫힌 영역(loop) 개수 ≥ 2 → '8'
+   3) Tesseract 호출
+   4) loop = 1 → 위치/크기로 4/6/9/0 판별 (OCR 결과도 참고)
+   5) loop = 0 → OCR 결과 우선, 비어 있으면 종횡비로 '1' 추정 */
+async function recognizeDigitsFromCanvas(canvas){
+  if(!canvas) return '';
+  try {
+    const features = computeInkFeatures(canvas);
+    if(!features) return '';  // 빈 칸
+
+    // 1) 한국식 "1" — 단순 세로획. 임계값을 완화해서 더 잘 잡아냄.
+    //    종횡비 ≥ 1.7 (높이가 폭의 1.7배 이상) 이고 폭이 캔버스의 38% 미만이면 1로 분류.
+    //    (l, |, 단순 세로획 모두 포함)
+    if(features.aspectRatio >= 1.7 && features.widthRatio < 0.38){
+      return '1';
+    }
+
+    // 2) Loop 검출 — 6/8/9/0 구분용
+    const loops = countInkLoops(canvas);
+
+    // 2-1) 닫힌 영역 2개 이상 → "8"
+    if(loops.count >= 2){
+      return '8';
+    }
+
+    // 3) Tesseract OCR 실행 (참고용)
+    const w = await getOCRWorker();
+    let ocrResult = '';
+    if(w){
+      const processed = preprocessForOCR(canvas);
+      if(processed){
+        const { data:{ text } } = await w.recognize(processed);
+        ocrResult = (text||'').replace(/\D/g, '').trim();
+      }
+    }
+
+    // 4) 닫힌 영역 1개 → OCR 결과 우선, 비었으면 위치/크기 기반 휴리스틱
+    if(loops.count === 1){
+      const c = loops.centroids[0];
+      const cy = c.y, cx = c.x;
+      const relY = (cy - features.minY) / Math.max(1, features.inkH);
+      const relX = (cx - features.minX) / Math.max(1, features.inkW);
+      const loopAreaRatio = c.size / Math.max(1, features.inkW * features.inkH);
+
+      // OCR이 명확한 숫자로 읽었으면 그대로 신뢰 — Tesseract는 보통 4와 9를 구분함
+      //   '9' 도 신뢰 목록에 추가: 한국식 9를 작게·왼쪽에 그렸을 때 휴리스틱이 4로 오판하는 문제 방지
+      if(['2','3','4','5','7','9'].includes(ocrResult)) return ocrResult;
+
+      // OCR이 비었거나 0/6/8/1 같은 모호한 결과 → 위치/크기로 폴백
+      // 4: loop이 명확히 좌측(relX < 0.40) + 위쪽(relY < 0.5) + 작음(loopAreaRatio < 0.20)
+      //    임계값을 strict 하게 잡아서 9 → 4 오판을 줄임
+      if(relY < 0.5 && relX < 0.40 && loopAreaRatio < 0.20) return '4';
+
+      // 0/6/9 위치 판별
+      //   위쪽(relY < 0.45): 9
+      //   아래쪽(relY > 0.55): 6
+      //   가운데: 0
+      if(relY < 0.45) return '9';
+      if(relY > 0.55) return '6';
+      return '0';
+    }
+
+    // 5) Loop 없음 — OCR 결과가 비었거나 의심스러우면 종횡비 기반 폴백
+    if(!ocrResult){
+      if(features.aspectRatio >= 1.5 && features.widthRatio < 0.45){
+        return '1';  // 1로 추정
+      }
+    }
+    // OCR이 1로 인식했지만 모양이 충분히 얇지 않으면 다른 숫자일 가능성 — 그래도 OCR 신뢰
+    return ocrResult;
+  } catch(e){
+    console.warn('OCR 인식 실패:', e);
+    return '';
+  }
+}
+
+/* 손글씨 답 패드 — 마우스/터치로 그리기 + 흰 배경 + clear() 함수 반환
+   opts.onChange — 그리기가 끝날 때마다 호출 (350ms 디바운스)
+   반환: { clear(), isEmpty() }
+   index.html (비례배분 실생활 문제) 의 setupAnswerPad 와 동일 — 사이즈가 동일할 땐 fillRect 안 함 (학생 획을 지우지 않기 위해) */
+function setupAnswerPad(canvas, opts = {}){
+  if(!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  function fit(){
+    const rect = canvas.getBoundingClientRect();
+    // 캔버스를 흰 배경으로 채우는 것은 첫 사이즈 결정 시 한 번만 — 이후에는 사용자가 그린 획을 지우지 않음
+    const needResize = (rect.width > 5 && rect.height > 5 &&
+      (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)));
+    if(needResize){
+      canvas.width  = Math.round(rect.width);
+      canvas.height = Math.round(rect.height);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  setTimeout(fit, 60);
+  setTimeout(fit, 300);
+  let drawing = false;
+  let changeTimer = null;
+  function fireChange(){
+    if(!opts.onChange) return;
+    clearTimeout(changeTimer);
+    changeTimer = setTimeout(()=> opts.onChange(), 350);
+  }
+  function getP(e){
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: (t.clientX - rect.left) * (canvas.width / rect.width),
+             y: (t.clientY - rect.top)  * (canvas.height / rect.height) };
+  }
+  // 그리기 시작 시 fit() 한 번 더 — 늦게 layout 잡힌 오른쪽 패드의 좌표 어긋남 방지 (size 같으면 no-op)
+  canvas.addEventListener('mousedown', e=>{ fit(); drawing=true; const p=getP(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); });
+  canvas.addEventListener('mousemove', e=>{ if(!drawing) return; const p=getP(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); });
+  canvas.addEventListener('mouseup',    ()=>{ if(drawing){ drawing=false; fireChange(); } });
+  canvas.addEventListener('mouseleave', ()=>{ if(drawing){ drawing=false; fireChange(); } });
+  canvas.addEventListener('touchstart', e=>{ fit(); drawing=true; const p=getP(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchmove',  e=>{ if(!drawing) return; const p=getP(e); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }, {passive:false});
+  canvas.addEventListener('touchend',   ()=>{ if(drawing){ drawing=false; fireChange(); } });
+  return {
+    clear: ()=>{
+      clearTimeout(changeTimer);
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    },
+    isEmpty: ()=>{
+      try {
+        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let inked = 0;
+        for(let i = 0; i < img.data.length; i += 4){
+          if(img.data[i] < 200 && img.data[i+1] < 200 && img.data[i+2] < 200) inked++;
+        }
+        return inked < 20;
+      } catch(e){ return false; }
+    }
+  };
+}
+</script>
+
+<!-- ===== 데모 wiring — makeProblems 스타일 그대로 ===== -->
+<script>
+(function(){
+  // 정답 배열 (예제: 1:3 비율로 12개를 나누면 3:9)
+  const correctAnswers = ['3', '9'];
+
+  const ansInputs = [...document.querySelectorAll('input.ans')];
+  const answerPads = [...document.querySelectorAll('canvas.answer-pad')];
+  const ocrTokens = answerPads.map(() => ({ n: 0 }));
+
+  // 그리기 종료 시 자동 OCR — 빈 결과는 입력칸을 덮어쓰지 않음
+  const padHandlers = answerPads.map((c, idx) => setupAnswerPad(c, {
+    onChange: async () => {
+      const tk = ocrTokens[idx];
+      const myN = ++tk.n;
+      const rec = await recognizeDigitsFromCanvas(c);
+      if(myN !== tk.n) return;
+      if(ansInputs[idx] && rec){
+        ansInputs[idx].value = rec;
+        ansInputs[idx].classList.remove('ok','bad');
+      }
+    }
+  }));
+
+  // 답 패드 지우기 — 입력칸도 같이 비움
+  document.querySelector('.clear-answer-pads').addEventListener('click', () => {
+    padHandlers.forEach(h => h && h.clear());
+    ocrTokens.forEach(tk => tk.n++);
+    answerPads.forEach(p => p.classList.remove('correct','wrong'));
+    ansInputs.forEach(inp => { if(inp){ inp.value = ''; inp.classList.remove('ok','bad'); } });
+  });
+
+  // 계산 노트 캔버스 — 그리기 + 지우기
+  const sc = document.querySelector('.scratch-pad');
+  if(sc){
+    const sctx = sc.getContext('2d');
+    function fitSC(){
+      const rect = sc.getBoundingClientRect();
+      if(rect.width > 10 && rect.height > 10){
+        sc.width = Math.round(rect.width);
+        sc.height = Math.round(rect.height);
+        sctx.strokeStyle = '#4a3826';
+        sctx.lineWidth = 3;
+        sctx.lineCap = 'round';
+        sctx.lineJoin = 'round';
+      }
+    }
+    setTimeout(fitSC, 60);
+    setTimeout(fitSC, 300);
+    let drawing = false;
+    function getP(e){
+      const rect = sc.getBoundingClientRect();
+      const t = e.touches ? e.touches[0] : e;
+      return { x:(t.clientX-rect.left)*(sc.width/rect.width), y:(t.clientY-rect.top)*(sc.height/rect.height) };
+    }
+    sc.addEventListener('mousedown', e=>{ drawing=true; const p=getP(e); sctx.beginPath(); sctx.moveTo(p.x,p.y); e.preventDefault(); });
+    sc.addEventListener('mousemove', e=>{ if(!drawing) return; const p=getP(e); sctx.lineTo(p.x,p.y); sctx.stroke(); e.preventDefault(); });
+    sc.addEventListener('mouseup',    ()=>{ drawing=false; });
+    sc.addEventListener('mouseleave', ()=>{ drawing=false; });
+    sc.addEventListener('touchstart', e=>{ drawing=true; const p=getP(e); sctx.beginPath(); sctx.moveTo(p.x,p.y); e.preventDefault(); }, {passive:false});
+    sc.addEventListener('touchmove',  e=>{ if(!drawing) return; const p=getP(e); sctx.lineTo(p.x,p.y); sctx.stroke(); e.preventDefault(); }, {passive:false});
+    sc.addEventListener('touchend',   ()=>{ drawing=false; });
+    document.querySelector('.clear-scratch').addEventListener('click', ()=>{ sctx.clearRect(0,0,sc.width,sc.height); });
+  }
+
+  // 정답 확인 — OCR 강제 재실행 후 검증
+  document.querySelector('#check').addEventListener('click', async () => {
+    const btn = document.querySelector('#check');
+    if(btn.disabled) return;
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = '인식 중...';
+
+    // 보드에 남아 있는 마지막 글자까지 반영
+    await Promise.all(answerPads.map(async (pad, j) => {
+      try {
+        const rec = await recognizeDigitsFromCanvas(pad);
+        if(rec && ansInputs[j]) ansInputs[j].value = rec;
+      } catch(e){ /* 실패해도 입력값으로 검증 */ }
+    }));
+
+    btn.textContent = orig;
+    btn.disabled = false;
+
+    // 검증 — 정답 배열과 비교
+    let allOk = true;
+    ansInputs.forEach((inp, j) => {
+      inp.classList.remove('ok','bad');
+      const v = (inp.value||'').trim();
+      const ok = v === correctAnswers[j];
+      inp.classList.add(ok ? 'ok' : 'bad');
+      if(!ok) allOk = false;
+    });
+    answerPads.forEach((pad, j) => {
+      pad.classList.remove('correct','wrong');
+      const v = (ansInputs[j]?.value||'').trim();
+      pad.classList.add(v === correctAnswers[j] ? 'correct' : 'wrong');
+    });
+
+    const res = document.querySelector('#result');
+    res.textContent = allOk ? '✓ 정답이에요!' : '✗ 다시 풀어볼까요?';
+    res.style.color = allOk ? '#16a34a' : '#dc2626';
+  });
+})();
+</script>
+
+</body>
+</html>
